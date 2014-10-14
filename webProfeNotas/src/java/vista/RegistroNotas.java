@@ -1,59 +1,39 @@
+
 package vista;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import modelo.DAO;
-import modelo.Profesor;
-import modelo.excepciones.URLException;
 
-/**
- *
- * @author Fco
- */
-@WebServlet(name = "MenuProfe", urlPatterns = {"/menu.view"})
-public class MenuProfe extends HttpServlet {
+
+@WebServlet(name = "RegistroNotas", urlPatterns = {"/ingresarnotas.view"})
+public class RegistroNotas extends HttpServlet {
+
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Profesor profeUp = (Profesor)session.getAttribute("profeUp");
-       
-
-         if(profeUp ==null){
-            session.setAttribute("error", new URLException("Debe iniciar sesión para acceder."));
-            request.getRequestDispatcher("error.view").forward(request, response);
-        }
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            DAO dao = new DAO();
-            String nombre = dao.dameTuNombre(profeUp);
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>profeNotas</title>");            
+            out.println("<title>Servlet RegistroNotas</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Bienvenido profesor: "+nombre+"</h1>");
+            out.println("<h1>Menú Registro de Notas</h1></br>");
             
-            out.println("<a href='ingresarnotas.view'>Registrar Notas</a>");
+            
             
             
             
             
             out.println("</body>");
             out.println("</html>");
-        } catch (SQLException ex) {
-            Logger.getLogger(MenuProfe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

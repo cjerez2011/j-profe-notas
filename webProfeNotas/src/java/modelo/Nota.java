@@ -10,6 +10,10 @@ public class Nota {
     private int porcentaje;
     private Alumno alumno;
     private Curso curso;
+    
+    
+    public Nota() {
+    }
 
     public Nota(float nota, int porcentaje, Alumno alumno, Curso curso) {
         this.nota = nota;
@@ -25,6 +29,11 @@ public class Nota {
         this.alumno = alumno;
         this.curso = curso;
     }
+
+
+  
+    
+    
 
     public int getId() {
         return id;
