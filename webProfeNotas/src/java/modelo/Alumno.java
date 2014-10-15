@@ -30,6 +30,16 @@ public class Alumno {
         this.sexo = sexo;
     }
 
+    public Alumno(int id, int edad, String rut, String nombre, String ape_pat, String ape_mat, String sexo) {
+        this.id = id;
+        this.edad = edad;
+        this.rut = rut;
+        this.nombre = nombre;
+        this.ape_pat = ape_pat;
+        this.ape_mat = ape_mat;
+        this.sexo = sexo;
+    }
+
     
     
     
