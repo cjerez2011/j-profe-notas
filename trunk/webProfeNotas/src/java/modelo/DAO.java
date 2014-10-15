@@ -1,6 +1,7 @@
 package modelo;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -106,15 +107,16 @@ String select = "select * from profesor where clave = AES_ENCRYPT('"+profe.getCl
       public void cargarAlumnos() {
         alumnos = new ArrayList<>();
         String rut, nombre, apePaterno, apeMaterno, sexo;
-        int edad;
+        int edad, id;
 
         try {
-            String select = "SELECT * FROM profesor;";
+            String select = "SELECT * FROM alumno;";
 
             con.sentencia = con.conexion.createStatement();
             con.tablaResultado = con.sentencia.executeQuery(select);
 
             while (con.tablaResultado.next()) {
+                id=con.tablaResultado.getInt("id");
                 rut = con.tablaResultado.getString("rut");
                 nombre = con.tablaResultado.getString("nombre");
                 apePaterno = con.tablaResultado.getString("ape_pat");
@@ -123,7 +125,7 @@ String select = "select * from profesor where clave = AES_ENCRYPT('"+profe.getCl
                 sexo = con.tablaResultado.getString("sexo");
                 
 
-                Alumno alum = new Alumno(rut,nombre,apePaterno,apeMaterno,sexo,edad);
+                Alumno alum = new Alumno(id, edad, rut, nombre, apePaterno, apeMaterno, sexo);
                 alumnos.add(alum);
             }
             con.sentencia.close();
@@ -193,6 +195,56 @@ String select = "select * from profesor where clave = AES_ENCRYPT('"+profe.getCl
         return promedio;
 
     }
+       
+   public void insertarNota (Nota n){
+   
+   Nota no=new Nota();
+   
+   
+   
+   try {
+            String insert = "insert into notas values(null,'"+no.getNota()+"','"+no.getPorcentaje()+"','"+no.getAlumno().getId()+"','"+no.getCurso().getId()+"')";
+
+            con.sentencia = con.conexion.createStatement();
+            con.sentencia.execute(insert);
+
+            
+            
+            con.sentencia.close();
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   
+   
+   
+   
+   
+   
+   }
+   
+   
+   public Alumno exist(Alumno al) {
+
+       
+       String select = "select * from alumno where rut = '"+al.getRut()+"' ";
+        try {
+            
+            con.sentencia = con.conexion.createStatement();
+            con.tablaResultado = con.sentencia.executeQuery(select);
+                 while (con.tablaResultado.next()) {
+                 return al;
+            }
+        con.sentencia.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+   }  
+    
+ 
+   
       
 }
 
