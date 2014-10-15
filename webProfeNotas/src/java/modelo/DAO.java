@@ -1,7 +1,6 @@
 package modelo;
 
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,10 +15,9 @@ public class DAO {
 
     private Conexion con;
     public List<Profesor> profes;
-    private List<Alumno> alumnos;
 
     public DAO() throws SQLException {
-        con = new Conexion("localhost", "colegio", "root", "");
+        con = new Conexion("localhost", "colegio", "root", "mysql");
         cargarProfes();
     }
 
@@ -103,149 +101,52 @@ String select = "select * from profesor where clave = AES_ENCRYPT('"+profe.getCl
         }
         return null;
     }
-    
-      public void cargarAlumnos() {
-        alumnos = new ArrayList<>();
-        String rut, nombre, apePaterno, apeMaterno, sexo;
-        int edad, id;
-
-        try {
-            String select = "SELECT * FROM alumno;";
-
+    public List listaJavaWeb(){
+String select = "select a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota, c.nombre as 'Curso'  from alumno a, notas b, curso c where b.alumno = a.id  and b.curso = c.id and c.id = 1";
+        List<CursoAlumno>lista = new ArrayList<>();
+            try {
+            
             con.sentencia = con.conexion.createStatement();
             con.tablaResultado = con.sentencia.executeQuery(select);
-
-            while (con.tablaResultado.next()) {
-                id=con.tablaResultado.getInt("id");
-                rut = con.tablaResultado.getString("rut");
-                nombre = con.tablaResultado.getString("nombre");
-                apePaterno = con.tablaResultado.getString("ape_pat");
-                apeMaterno = con.tablaResultado.getString("ape_mat");
-                edad = con.tablaResultado.getInt("edad");
-                sexo = con.tablaResultado.getString("sexo");
-                
-
-                Alumno alum = new Alumno(id, edad, rut, nombre, apePaterno, apeMaterno, sexo);
-                alumnos.add(alum);
+            while(con.tablaResultado.next()){
+            String rut = con.tablaResultado.getString("rut");
+            String nombre = con.tablaResultado.getString("nombre");
+            String apeP = con.tablaResultado.getString("ape_pat");
+            String apeM = con.tablaResultado.getString("ape_mat");
+            int nota = con.tablaResultado.getInt("nota");
+            String curso = con.tablaResultado.getString("curso");
+            CursoAlumno c = new CursoAlumno(rut,nombre,apeP,apeM,nota,curso);
+            lista.add(c);
             }
             con.sentencia.close();
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return lista;    
     }
-    
-     public void cargarAlumnosCurso(int curso) {
-        alumnos = new ArrayList<>();
-        String rut, nombre, apePaterno, apeMaterno ,cur;
-        int  nota;
-   Curso  curs=new Curso();
-   Nota not=new Nota();
-        try {
-            String select = "select   a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota, c.nombre as 'Curso' \n"+
-                    " from alumno a, notas b, curso c" +
-"where b.alumno = a.id  and b.curso = c.id and c.id = "+curso+"";
-
+    public List listaAlgoritmos(){
+        String select = "select a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota, c.nombre as 'Curso'  from alumno a, notas b, curso c where b.alumno = a.id  and b.curso = c.id and c.id = 5";
+        List<CursoAlumno>lista = new ArrayList<>();
+            try {
+            
             con.sentencia = con.conexion.createStatement();
             con.tablaResultado = con.sentencia.executeQuery(select);
-
-            while (con.tablaResultado.next()) {
-                rut = con.tablaResultado.getString("rut");
-                nombre = con.tablaResultado.getString("nombre");
-                apePaterno = con.tablaResultado.getString("ape_pat");
-                apeMaterno = con.tablaResultado.getString("ape_mat");
-                nota = con.tablaResultado.getInt("nota");
-                cur = con.tablaResultado.getString("curso");
-                
-              curs.setNombre(cur);
-              not.setNota(nota);
-                   
-                       
-                Alumno alum = new Alumno(rut, nombre, select, select, not, curs);
-                alumnos.add(alum);
+            while(con.tablaResultado.next()){
+            String rut = con.tablaResultado.getString("rut");
+            String nombre = con.tablaResultado.getString("nombre");
+            String apeP = con.tablaResultado.getString("ape_pat");
+            String apeM = con.tablaResultado.getString("ape_mat");
+            int nota = con.tablaResultado.getInt("nota");
+            String curso = con.tablaResultado.getString("curso");
+            CursoAlumno c = new CursoAlumno(rut,nombre,apeP,apeM,nota,curso);
+            lista.add(c);
             }
             con.sentencia.close();
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return lista;  
     }
-      
-       public int promedioCurso(int id) {
-     int promedio=0;
-        try {
-            String select = " select   round(sum(nota)/count(nota))      from   notas \n" +
-" where  notas.curso = "+id+"";
-
-            con.sentencia = con.conexion.createStatement();
-            con.tablaResultado = con.sentencia.executeQuery(select);
-
-            while (con.tablaResultado.next()) {
-                promedio = con.tablaResultado.getInt("promedio");
-             
-              
-            }
-            
-            con.sentencia.close();
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return promedio;
-
-    }
-       
-   public void insertarNota (Nota n){
-   
-   Nota no=new Nota();
-   
-   
-   
-   try {
-            String insert = "insert into notas values(null,'"+no.getNota()+"','"+no.getPorcentaje()+"','"+no.getAlumno().getId()+"','"+no.getCurso().getId()+"')";
-
-            con.sentencia = con.conexion.createStatement();
-            con.sentencia.execute(insert);
-
-            
-            
-            con.sentencia.close();
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-   
-   
-   
-   
-   
-   
-   }
-   
-   
-   public Alumno exist(Alumno al) {
-
-       
-       String select = "select * from alumno where rut = '"+al.getRut()+"' ";
-        try {
-            
-            con.sentencia = con.conexion.createStatement();
-            con.tablaResultado = con.sentencia.executeQuery(select);
-                 while (con.tablaResultado.next()) {
-                 return al;
-            }
-        con.sentencia.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-   }  
-    
- 
-   
-      
 }
 
 

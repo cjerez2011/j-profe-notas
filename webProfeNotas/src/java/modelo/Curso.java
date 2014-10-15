@@ -1,18 +1,13 @@
-
-
 package modelo;
 
-
+/**
+ *
+ * @author Fco
+ */
 public class Curso {
-    
     private int id;
     private String nombre;
     private Profesor profe;
-
-    public Curso(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
 
     public Curso(int id, String nombre, Profesor profe) {
         this.id = id;
@@ -20,16 +15,11 @@ public class Curso {
         this.profe = profe;
     }
 
-    public Curso(String nombre) {
+    public Curso(String nombre, Profesor profe) {
         this.nombre = nombre;
+        this.profe = profe;
     }
 
-    public Curso() {
-    }
-
-    
-    
-    
     public int getId() {
         return id;
     }
@@ -53,8 +43,10 @@ public class Curso {
     public void setProfe(Profesor profe) {
         this.profe = profe;
     }
-    
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return nombre + "" + profe;
+    }
+
 }
