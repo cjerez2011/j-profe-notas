@@ -3,6 +3,7 @@ package vista;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -10,52 +11,58 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import modelo.CursoAlumno;
 import modelo.DAO;
-import modelo.Profesor;
-import modelo.excepciones.URLException;
 
 /**
  *
  * @author Fco
  */
-@WebServlet(name = "MenuProfe", urlPatterns = {"/menu.view"})
-public class MenuProfe extends HttpServlet {
+@WebServlet(name = "JavaWebCurso", urlPatterns = {"/cursoJava.view"})
+public class JavaWebCurso extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Profesor profeUp = (Profesor)session.getAttribute("profeUp");
-       
-
-         if(profeUp ==null){
-            session.setAttribute("error", new URLException("Debe iniciar sesión para acceder."));
-            request.getRequestDispatcher("error.view").forward(request, response);
-        }
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             DAO dao = new DAO();
-            String nombre = dao.dameTuNombre(profeUp);
+            List<CursoAlumno>lista = dao.listaJavaWeb();
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<link rel='stylesheet' type='text/css' href='css/css2.css'/>");
-            out.println("<title>profeNotas</title>");            
+            out.println("<title>Servlet JavaWebCurso</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Bienvenido profesor: "+nombre+"</h1>");
-            out.println("<div class='navigation'>");
-            out.println("<ul>");
-            out.println("<li><a href='cursos.view'>Ver cursos</a></li>");
-            out.println("<li><a href='#'>Agenda</a></li>");
-            out.println("<li><a href='#'>Log out</a></li>"); 
-            out.println("</ul>");
-            out.println("<div>");
+            
+            
+            out.println("<table align='center' class='tablaDatos'>");    
+            out.println("<tr>");
+            out.println("<th class='titulosTabla'>Rut</th>");
+            out.println("<th class='titulosTabla'>Nombre</th>");
+            out.println("<th class='titulosTabla'>Apellido paterno</th>");
+            out.println("<th class='titulosTabla'>Apellido materno</th>");
+            out.println("<th class='titulosTabla'>Notas</th>");
+            out.println("<th class='titulosTabla'>Curso</th>");
+            out.println("</tr>");
+            
+            for(CursoAlumno c : lista){
+                out.println("<tr>");
+                out.println("<td class='datos'>" + c.getRut() + "</td>");
+                out.println("<td class='datos'>" + c.getNombre() + "</td>");
+                out.println("<td class='datos'>" + c.getApePa() + "</td>");
+                out.println("<td class='datos'>" + c.getApeMa() + "</td>");
+                out.println("<td class='datos'>" + c.getNota() + "</td>");
+                out.println("<td class='datos'>" + c.getCurso() + "</td>");
+                out.println("</tr>");
+            }
+            out.println("</table>");
+            
             out.println("</body>");
             out.println("</html>");
         } catch (SQLException ex) {
-            Logger.getLogger(MenuProfe.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JavaWebCurso.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

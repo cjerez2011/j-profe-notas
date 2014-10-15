@@ -1,78 +1,42 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 package modelo;
 
-
+/**
+ *
+ * @author Fco
+ */
 public class Alumno {
-    
-  private  int id, edad;
-  private   String rut,nombre,ape_pat,ape_mat,sexo;
-  private Nota nota;
-  private Curso curso;
-  
-  
-  
-    public Alumno(String rut, String nombre, String ape_pat, String ape_mat, Nota nota, Curso curso) {
-        this.rut = rut;
-        this.nombre = nombre;
-        this.ape_pat = ape_pat;
-        this.ape_mat = ape_mat;
-        this.nota = nota;
-        this.curso = curso;
-    }
+    private int id;
+    private String rut;
+    private String nombre;
+    private String apellidoPaterno;
+    private String apellidoMaterno;
+    private int edad;
+    private String sexo;
 
-    public Alumno( String rut, String nombre, String ape_pat, String ape_mat, String sexo,int edad) {
-        this.edad = edad;
-        this.rut = rut;
-        this.nombre = nombre;
-        this.ape_pat = ape_pat;
-        this.ape_mat = ape_mat;
-        this.sexo = sexo;
-    }
-
-    public Alumno(int id, int edad, String rut, String nombre, String ape_pat, String ape_mat, String sexo) {
+    public Alumno(int id, String rut, String nombre, String apellidoPaterno, String apellidoMaterno, int edad, String sexo) {
         this.id = id;
-        this.edad = edad;
         this.rut = rut;
         this.nombre = nombre;
-        this.ape_pat = ape_pat;
-        this.ape_mat = ape_mat;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.edad = edad;
         this.sexo = sexo;
     }
-
-    
-    
-    
-
-    public Nota getNota() {
-        return nota;
-    }
-
-    public void setNota(Nota nota) {
-        this.nota = nota;
-    }
-
-    public Curso getCurso() {
-        return curso;
-    }
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
-  
-
-    public String getRut() {
-        return rut;
-    }
-
-    public void setRut(String rut) {
+//constructor por si hay q crear un nuevo alumno
+    public Alumno(String rut, String nombre, String apellidoPaterno, String apellidoMaterno, int edad, String sexo) {
         this.rut = rut;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.edad = edad;
+        this.sexo = sexo;
     }
-  
-  
-  
-  
 
     public int getId() {
         return id;
@@ -82,12 +46,12 @@ public class Alumno {
         this.id = id;
     }
 
-    public int getEdad() {
-        return edad;
+    public String getRut() {
+        return rut;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setRut(String rut) {
+        this.rut = rut;
     }
 
     public String getNombre() {
@@ -98,20 +62,28 @@ public class Alumno {
         this.nombre = nombre;
     }
 
-    public String getApe_pat() {
-        return ape_pat;
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
     }
 
-    public void setApe_pat(String ape_pat) {
-        this.ape_pat = ape_pat;
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
     }
 
-    public String getApe_mat() {
-        return ape_mat;
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
     }
 
-    public void setApe_mat(String ape_mat) {
-        this.ape_mat = ape_mat;
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
 
     public String getSexo() {
@@ -121,7 +93,10 @@ public class Alumno {
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return rut + "" + nombre + " " + apellidoPaterno + " " + apellidoMaterno + " " + edad + " " + sexo;
+    }
     
 }
