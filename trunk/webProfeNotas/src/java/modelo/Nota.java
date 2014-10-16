@@ -1,24 +1,22 @@
 package modelo;
 
-/**
- *
- * @author Fco
- */
+
 public class Nota {
     private int id;
     private float nota;
     private int porcentaje;
+    private String descripcion;
     private Alumno alumno;
     private Curso curso;
 
-    public Nota(float nota, int porcentaje, Alumno alumno, Curso curso) {
+    public Nota(float nota, int porcentaje, String descripcion, Alumno alumno, Curso curso) {
         this.nota = nota;
         this.porcentaje = porcentaje;
         this.alumno = alumno;
         this.curso = curso;
     }
 
-    public Nota(int id, float nota, int porcentaje, Alumno alumno, Curso curso) {
+    public Nota(int id, float nota, String descripcion, int porcentaje, Alumno alumno, Curso curso) {
         this.id = id;
         this.nota = nota;
         this.porcentaje = porcentaje;
@@ -26,6 +24,16 @@ public class Nota {
         this.curso = curso;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    
+    
     public int getId() {
         return id;
     }
@@ -68,7 +76,7 @@ public class Nota {
 
     @Override
     public String toString() {
-        return  nota + "" + porcentaje + "" + alumno + "" + curso;
+        return  nota + "" + porcentaje + ""+descripcion+"" + alumno + "" + curso;
     }
 
 }

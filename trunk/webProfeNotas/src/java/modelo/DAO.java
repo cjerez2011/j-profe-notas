@@ -15,6 +15,7 @@ public class DAO {
 
     private Conexion con;
     public List<Profesor> profes;
+    private List<Alumno> alumnos;
 
     public DAO() throws SQLException {
         con = new Conexion("localhost", "colegio", "root", "mysql");
@@ -147,6 +148,80 @@ String select = "select a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota, c.nombre 
         }
         return lista;  
     }
+    
+//    public List<Alumno> cargarAlumnosCurso(int curso) {
+// 
+//        alumnos = new ArrayList<>();
+// 
+//        String rut, nombre, apePaterno, apeMaterno ,cur;
+// 
+//        int  nota;
+// 
+//   Curso  curs=new Curso();
+// 
+//   Nota not=new Nota();
+// 
+//        try {
+// 
+//            String select = "select   a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota, c.nombre as 'Curso' \n"+
+// 
+//                    " from alumno a, notas b, curso c" +
+// 
+//"where b.alumno = a.id  and b.curso = c.id and c.id = "+curso+"";
+// 
+//
+// 
+//            con.sentencia = con.conexion.createStatement();
+// 
+//            con.tablaResultado = con.sentencia.executeQuery(select);
+// 
+//
+// 
+//            while (con.tablaResultado.next()) {
+// 
+//                rut = con.tablaResultado.getString("rut");
+// 
+//                nombre = con.tablaResultado.getString("nombre");
+// 
+//                apePaterno = con.tablaResultado.getString("ape_pat");
+// 
+//                apeMaterno = con.tablaResultado.getString("ape_mat");
+// 
+//                nota = con.tablaResultado.getInt("nota");
+// 
+//                cur = con.tablaResultado.getString("curso");
+// 
+//                
+// 
+//              curs.setNombre(cur);
+// 
+//              not.setNota(nota);
+// 
+//                   
+// 
+//                       
+// 
+//                Alumno alum = new Alumno(rut, nombre, select, select, not, curs);
+// 
+//                alumnos.add(alum);
+// 
+//            }
+// 
+//            con.sentencia.close();
+// 
+//        } catch (SQLException ex) {
+// 
+//            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+// 
+//        }
+//        return null;
+// 
+//
+// 
+//    }
+// 
+
+    
 }
 
 
