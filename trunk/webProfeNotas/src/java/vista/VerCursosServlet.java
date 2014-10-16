@@ -44,26 +44,33 @@ public class VerCursosServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Cursos de: "+nombre+"</h1>");
-            if(nombre.equalsIgnoreCase("Patricio Nicolás Pérez")){ 
-            out.println("<form action='cursoJava.view' method='post'>");
-            out.println("<input type='submit' value='Java Web' class='botonCurso'/></br>");
-            out.println("</form>");
-            out.println("<form action='#' method='post'>");
-            out.println("<input type='submit' value='Base de datos I' class='botonCurso'/></br>");
-            out.println("</form>");    
-            out.println("<form action='#' method='post'>");
-            out.println("<input type='submit' value='SO' class='botonCurso'/></br>");
-            out.println("</form>");        
-            }else{
-            out.println("</form>");    
-            out.println("<form action='#' method='post'>");
-            out.println("<input type='submit' value='Introducción a la programación' class='botonCurso'/></br>");
-            out.println("</form>");  
-            out.println("</form>");    
-            out.println("<form action='algoritmos.view' method='post'>");
-            out.println("<input type='submit' value='Algoritmos' class='botonCurso'/></br>");
-            out.println("</form>");  
-            }
+            
+            
+            
+            
+            
+//            if(nombre.equalsIgnoreCase("Patricio Nicolás Pérez")){ 
+//            out.println("<form action='cursoJava.view' method='post'>");
+//            out.println("<input type='submit' value='Java Web' class='botonCurso'/></br>");
+//            
+//            
+//            out.println("</form>");
+//            out.println("<form action='#' method='post'>");
+//            out.println("<input type='submit' value='Base de datos I' class='botonCurso'/></br>");
+//            out.println("</form>");    
+//            out.println("<form action='#' method='post'>");
+//            out.println("<input type='submit' value='SO' class='botonCurso'/></br>");
+//            out.println("</form>");        
+//            }else{
+//            out.println("</form>");    
+//            out.println("<form action='#' method='post'>");
+//            out.println("<input type='submit' value='Introducción a la programación' class='botonCurso'/></br>");
+//            out.println("</form>");  
+//            out.println("</form>");    
+//            out.println("<form action='algoritmos.view' method='post'>");
+//            out.println("<input type='submit' value='Algoritmos' class='botonCurso'/></br>");
+//            out.println("</form>");  
+//            }
                 
             out.println("</body>");
             out.println("</html>");

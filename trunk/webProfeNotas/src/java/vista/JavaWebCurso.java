@@ -27,7 +27,9 @@ public class JavaWebCurso extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             DAO dao = new DAO();
-            List<CursoAlumno>lista = dao.listaJavaWeb();
+            int id=0;
+            
+            List<CursoAlumno>lista = dao.listaJavaWeb(id);
             
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -47,7 +49,7 @@ public class JavaWebCurso extends HttpServlet {
             out.println("<th class='titulosTabla'>Curso</th>");
             out.println("</tr>");
             
-            for(CursoAlumno c : lista){
+          for(CursoAlumno c : lista){
                 out.println("<tr>");
                 out.println("<td class='datos'>" + c.getRut() + "</td>");
                 out.println("<td class='datos'>" + c.getNombre() + "</td>");

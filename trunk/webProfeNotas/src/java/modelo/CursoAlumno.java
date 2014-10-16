@@ -10,15 +10,25 @@ public class CursoAlumno {
     private String apePa;
     private String apeMa;
     private int nota;
+    private String descripcion;
     private String curso;
 
-    public CursoAlumno(String rut, String nombre, String apePa, String apeMa, int nota, String curso) {
+    public CursoAlumno(String rut, String nombre, String apePa, String apeMa, int nota,String descripcion, String curso) {
         this.rut = rut;
         this.nombre = nombre;
         this.apePa = apePa;
         this.apeMa = apeMa;
         this.nota = nota;
         this.curso = curso;
+        this.descripcion=descripcion;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getRut() {
