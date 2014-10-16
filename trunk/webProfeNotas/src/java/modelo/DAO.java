@@ -221,7 +221,9 @@ String select = "select a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota, c.nombre 
 //    }
 // 
 
-    
+    public String caca(){
+        return "caca";
+    }
 }
 
 //  prueba 2
