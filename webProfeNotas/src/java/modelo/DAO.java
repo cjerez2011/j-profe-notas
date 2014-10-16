@@ -223,3 +223,5 @@ String select = "select a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota, c.nombre 
 
     
 }
+
+//  prueba 2
