@@ -102,7 +102,32 @@ String select = "select * from profesor where clave = AES_ENCRYPT('"+profe.getCl
         }
         return null;
     }
-    
+    public List listaJavaWeb(){
+        int num=0;
+        //comentarios;;
+        
+String select = "select a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota, c.nombre as 'Curso'  from alumno a, notas b, curso c where b.alumno = a.id  and b.curso = c.id and c.id = 1";
+        List<CursoAlumno>lista = new ArrayList<>();
+            try {
+            
+            con.sentencia = con.conexion.createStatement();
+            con.tablaResultado = con.sentencia.executeQuery(select);
+            while(con.tablaResultado.next()){
+            String rut = con.tablaResultado.getString("rut");
+            String nombre = con.tablaResultado.getString("nombre");
+            String apeP = con.tablaResultado.getString("ape_pat");
+            String apeM = con.tablaResultado.getString("ape_mat");
+            int nota = con.tablaResultado.getInt("nota");
+            String curso = con.tablaResultado.getString("curso");
+            CursoAlumno c = new CursoAlumno(rut,nombre,apeP,apeM,nota,curso);
+            lista.add(c);
+            }
+            con.sentencia.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;    
+    }
     public List listaAlgoritmos(){
         String select = "select a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota, c.nombre as 'Curso'  from alumno a, notas b, curso c where b.alumno = a.id  and b.curso = c.id and c.id = 5";
         List<CursoAlumno>lista = new ArrayList<>();
