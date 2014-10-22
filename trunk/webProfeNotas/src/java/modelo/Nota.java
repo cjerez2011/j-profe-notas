@@ -1,13 +1,16 @@
 package modelo;
 
-
 public class Nota {
+
     private int id;
     private float nota;
     private int porcentaje;
     private String descripcion;
     private Alumno alumno;
     private Curso curso;
+
+    public Nota() {
+    }
 
     public Nota(float nota, int porcentaje, String descripcion, Alumno alumno, Curso curso) {
         this.nota = nota;
@@ -32,8 +35,6 @@ public class Nota {
         this.descripcion = descripcion;
     }
 
-    
-    
     public int getId() {
         return id;
     }
@@ -76,7 +77,7 @@ public class Nota {
 
     @Override
     public String toString() {
-        return  nota + "" + porcentaje + ""+descripcion+"" + alumno + "" + curso;
+        return nota + "" + porcentaje + "" + descripcion + "" + alumno + "" + curso;
     }
 
 }

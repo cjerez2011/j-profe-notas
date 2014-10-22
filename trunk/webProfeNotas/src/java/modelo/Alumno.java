@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package modelo;
 
 /**
@@ -11,6 +5,7 @@ package modelo;
  * @author Fco
  */
 public class Alumno {
+
     private int id;
     private String rut;
     private String nombre;
@@ -29,6 +24,7 @@ public class Alumno {
         this.sexo = sexo;
     }
 //constructor por si hay q crear un nuevo alumno
+
     public Alumno(String rut, String nombre, String apellidoPaterno, String apellidoMaterno, int edad, String sexo) {
         this.rut = rut;
         this.nombre = nombre;
@@ -98,5 +94,5 @@ public class Alumno {
     public String toString() {
         return rut + "" + nombre + " " + apellidoPaterno + " " + apellidoMaterno + " " + edad + " " + sexo;
     }
-    
+
 }

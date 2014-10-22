@@ -1,4 +1,3 @@
-
 package vista;
 
 import java.io.IOException;
@@ -21,19 +20,19 @@ public class ErrorServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+
             HttpSession session = request.getSession();
-            
-            Exception ex = (Exception)session.getAttribute("error");
-            
+
+            Exception ex = (Exception) session.getAttribute("error");
+
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ErrorServlet</title>");            
+            out.println("<title>Servlet ErrorServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            
-            out.println("<h3>Error: "+ex.getMessage()+"</h3>");
+
+            out.println("<h3>Error: " + ex.getMessage() + "</h3>");
             out.println("<a href='index.jsp'>Volver</a>");
             out.println("</body>");
             out.println("</html>");

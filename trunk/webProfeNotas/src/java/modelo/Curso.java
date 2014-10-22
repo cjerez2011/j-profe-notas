@@ -5,17 +5,28 @@ package modelo;
  * @author Fco
  */
 public class Curso {
+
     private int id;
     private String nombre;
     private Profesor profe;
 
-    public Curso(int id, String nombre, Profesor profe) {
+    public Curso() {
+    }
+
+    public Curso(int id, String nombre) {
         this.id = id;
+        this.nombre = nombre;
+    }
+
+  
+
+    public Curso(String nombre, Profesor profe) {
         this.nombre = nombre;
         this.profe = profe;
     }
-
-    public Curso(String nombre, Profesor profe) {
+    
+      public Curso(int id, String nombre, Profesor profe) {
+        this.id = id;
         this.nombre = nombre;
         this.profe = profe;
     }

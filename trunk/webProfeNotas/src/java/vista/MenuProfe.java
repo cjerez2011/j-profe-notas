@@ -26,10 +26,9 @@ public class MenuProfe extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        Profesor profeUp = (Profesor)session.getAttribute("profeUp");
-       
+        Profesor profeUp = (Profesor) session.getAttribute("profeUp");
 
-         if(profeUp ==null){
+        if (profeUp == null) {
             session.setAttribute("error", new URLException("Debe iniciar sesión para acceder."));
             request.getRequestDispatcher("error.view").forward(request, response);
         }
@@ -37,19 +36,20 @@ public class MenuProfe extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             DAO dao = new DAO();
             String nombre = dao.dameTuNombre(profeUp);
+            String rut=dao.dameTuRut(profeUp);
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<link rel='stylesheet' type='text/css' href='css/css2.css'/>");
-            out.println("<title>profeNotas</title>");            
+            out.println("<title>profeNotas</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Bienvenido profesor: "+nombre+"</h1>");
+            out.println("<h1>Bienvenido profesor: " + nombre + "</h1>");
             out.println("<div class='navigation'>");
             out.println("<ul>");
             out.println("<li><a href='cursos.view'>Ver cursos</a></li>");
             out.println("<li><a href='#'>Agenda</a></li>");
-            out.println("<li><a href='#'>Log out</a></li>"); 
+            out.println("<li><a href='#'>Log out</a></li>");
             out.println("</ul>");
             out.println("<div>");
             out.println("</body>");

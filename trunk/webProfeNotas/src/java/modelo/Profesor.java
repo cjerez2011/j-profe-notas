@@ -5,6 +5,7 @@ package modelo;
  * @author Fco
  */
 public class Profesor {
+
     private String rut;
     private String nombre;
     private String apellidoPaterno;
@@ -88,6 +89,5 @@ public class Profesor {
     public String toString() {
         return rut + "" + nombre + "" + apellidoPaterno + "" + apellidoMaterno + "" + edad + "" + sexo + "" + clave;
     }
-    
-    
+
 }

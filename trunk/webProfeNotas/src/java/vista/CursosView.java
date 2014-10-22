@@ -16,10 +16,10 @@ import modelo.DAO;
 
 /**
  *
- * @author Fco
+ * @author home
  */
-@WebServlet(name = "JavaWebCurso", urlPatterns = {"/cursoJava.view"})
-public class JavaWebCurso extends HttpServlet {
+@WebServlet(name = "CursosView", urlPatterns = {"/cursosview.view"})
+public class CursosView extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -27,8 +27,10 @@ public class JavaWebCurso extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             DAO dao = new DAO();
-            int id = 0;
+            int id = Integer.parseInt(request.getParameter("idCurso"));
 
+            
+            
             List<CursoAlumno> lista = dao.listaJavaWeb(id);
 
             out.println("<!DOCTYPE html>");
@@ -38,6 +40,9 @@ public class JavaWebCurso extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
 
+            
+             out.println("<h1>"+id+"</h1>");
+            
             out.println("<table align='center' class='tablaDatos'>");
             out.println("<tr>");
             out.println("<th class='titulosTabla'>Rut</th>");
@@ -45,6 +50,7 @@ public class JavaWebCurso extends HttpServlet {
             out.println("<th class='titulosTabla'>Apellido paterno</th>");
             out.println("<th class='titulosTabla'>Apellido materno</th>");
             out.println("<th class='titulosTabla'>Notas</th>");
+            out.println("<th class='titulosTabla'>Detalle Notas</th>");
             out.println("<th class='titulosTabla'>Curso</th>");
             out.println("</tr>");
 
@@ -55,6 +61,7 @@ public class JavaWebCurso extends HttpServlet {
                 out.println("<td class='datos'>" + c.getApePa() + "</td>");
                 out.println("<td class='datos'>" + c.getApeMa() + "</td>");
                 out.println("<td class='datos'>" + c.getNota() + "</td>");
+                out.println("<td class='datos'>" + c.getDescripcion() + "</td>");
                 out.println("<td class='datos'>" + c.getCurso() + "</td>");
                 out.println("</tr>");
             }
