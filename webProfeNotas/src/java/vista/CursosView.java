@@ -41,7 +41,7 @@ public class CursosView extends HttpServlet {
             out.println("<body>");
 
             
-             out.println("<h1>"+id+"</h1>");
+             // out.println("<h1>"+id+"</h1>");
             
             out.println("<table align='center' class='tablaDatos'>");
             out.println("<tr>");
@@ -67,6 +67,10 @@ public class CursosView extends HttpServlet {
             }
             out.println("</table>");
 
+            int prom=dao.promedioCurso(id);
+            
+            
+             out.println("<h1>Promedio Curso    "+prom+"</h1>");
             out.println("</body>");
             out.println("</html>");
         } catch (SQLException ex) {

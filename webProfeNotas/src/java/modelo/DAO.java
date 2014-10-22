@@ -156,8 +156,36 @@ public class DAO {
         }
         return cursos;
     }
-    
-    
-    
+
+    public int promedioCurso(int id) {
+
+        int promedio = 0;
+
+        try {
+
+            String select = " select   round(sum(nota)/count(nota))      from   notas "
+                    + " where  notas.curso = " + id + "";
+
+            con.sentencia = con.conexion.createStatement();
+
+            con.tablaResultado = con.sentencia.executeQuery(select);
+
+            while (con.tablaResultado.next()) {
+
+                promedio = con.tablaResultado.getInt("round(sum(nota)/count(nota))");
+
+            }
+
+            con.sentencia.close();
+
+        } catch (SQLException ex) {
+
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        return promedio;
+
+    }
 
 }
