@@ -29,7 +29,7 @@ public class ValidarSesionProfe extends HttpServlet {
             String run, pass;
             run = request.getParameter("txtRun");
             pass = request.getParameter("txtPass");
-            Profesor up = new Profesor(run,pass);
+            Profesor up = new Profesor(run, pass);
             DAO dao = new DAO();
 //            int conexion = dao.exist(run, pass);
             Profesor profe = dao.exist(up);
@@ -42,8 +42,8 @@ public class ValidarSesionProfe extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("error", ex);
             request.getRequestDispatcher("error.view").forward(request, response);
-        } 
-        
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

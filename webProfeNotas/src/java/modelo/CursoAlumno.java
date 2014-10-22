@@ -5,6 +5,7 @@ package modelo;
  * @author Fco
  */
 public class CursoAlumno {
+
     private String rut;
     private String nombre;
     private String apePa;
@@ -13,14 +14,14 @@ public class CursoAlumno {
     private String descripcion;
     private String curso;
 
-    public CursoAlumno(String rut, String nombre, String apePa, String apeMa, int nota,String descripcion, String curso) {
+    public CursoAlumno(String rut, String nombre, String apePa, String apeMa, int nota, String descripcion, String curso) {
         this.rut = rut;
         this.nombre = nombre;
         this.apePa = apePa;
         this.apeMa = apeMa;
         this.nota = nota;
         this.curso = curso;
-        this.descripcion=descripcion;
+        this.descripcion = descripcion;
     }
 
     public String getDescripcion() {
@@ -83,6 +84,5 @@ public class CursoAlumno {
     public String toString() {
         return rut + "" + nombre + "" + apePa + "" + apeMa + "" + nota + "" + curso;
     }
-    
-    
+
 }

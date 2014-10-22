@@ -3,6 +3,8 @@ package vista;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.Curso;
 import modelo.DAO;
 import modelo.Profesor;
 import modelo.excepciones.URLException;
@@ -36,25 +39,31 @@ public class VerCursosServlet extends HttpServlet {
             }
             DAO dao = new DAO();
             String nombre = dao.dameTuNombre(profeUp);
+            String rut = dao.dameTuRut(profeUp);
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet VerCursosServlet</title>");        
+            out.println("<title>Servlet VerCursosServlet</title>");
             out.println("<link rel='stylesheet' type='text/css' href='css/css3.css'/>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Cursos de: "+nombre+"</h1>");
-            
-            
-            
-            
-            
+            out.println("<h1>Cursos de: " + nombre + "</h1>");
+
 //            if(nombre.equalsIgnoreCase("Patricio Nicolás Pérez")){ 
-//            out.println("<form action='cursoJava.view' method='post'>");
-//            out.println("<input type='submit' value='Java Web' class='botonCurso'/></br>");
+            out.println("<form action='cursosview.view' method='post'>");
+            List<Curso> cur = new ArrayList<Curso>();
+            cur = dao.CargarCursos(rut);
+
+            for (Curso c : cur) {
+
+                out.println("<input type='submit' value='" + c.getNombre() + "' class='botonCurso'/></br>");
+            out.println("<input type='hidden' value='"+c.getId()+"' class='botonCurso' name='idCurso'/></br>");
+            }
+
+           
 //            
 //            
-//            out.println("</form>");
+            out.println("</form>");
 //            out.println("<form action='#' method='post'>");
 //            out.println("<input type='submit' value='Base de datos I' class='botonCurso'/></br>");
 //            out.println("</form>");    
@@ -71,7 +80,6 @@ public class VerCursosServlet extends HttpServlet {
 //            out.println("<input type='submit' value='Algoritmos' class='botonCurso'/></br>");
 //            out.println("</form>");  
 //            }
-                
             out.println("</body>");
             out.println("</html>");
         } catch (SQLException ex) {

@@ -1,4 +1,3 @@
-
 package vista;
 
 import java.io.IOException;
@@ -9,10 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet(name = "RegistroNotas", urlPatterns = {"/ingresarnotas.view"})
 public class RegistroNotas extends HttpServlet {
-
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -22,16 +19,11 @@ public class RegistroNotas extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegistroNotas</title>");            
+            out.println("<title>Servlet RegistroNotas</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Menú Registro de Notas</h1></br>");
-            
-            
-            
-            
-            
-            
+
             out.println("</body>");
             out.println("</html>");
         }
