@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelo.Alumno;
 import modelo.Curso;
+import modelo.CursoAlumno;
 import modelo.DAO;
 import modelo.Profesor;
 import modelo.excepciones.URLException;
@@ -42,12 +43,15 @@ public class InformeCursoServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-            List<Alumno> alumnos = null;
+            DAO dao = new DAO();
+            int id = 0;
+
+             List<CursoAlumno> lista = dao.listaJavaWeb(id);
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -70,11 +74,11 @@ public class InformeCursoServlet extends HttpServlet {
                         out.println("<th>Promedio</th>");
                     out.println("</tr>");
                     
-                for(Alumno a : alumnos){
+                for(CursoAlumno a : lista){
                      out.println("<tr>");
                         out.println("<td>"+a.getRut()+"</td>");
                         out.println("<td>"+a.getNombre()+"</td>");
-                        out.println("<td>"+null+"</td>");
+                        out.println("<td>"+dao.promedioAlumno(id)+"</td>");
                        
                     out.println("</tr>");
                 }
@@ -99,7 +103,11 @@ public class InformeCursoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(InformeCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -113,7 +121,11 @@ public class InformeCursoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(InformeCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

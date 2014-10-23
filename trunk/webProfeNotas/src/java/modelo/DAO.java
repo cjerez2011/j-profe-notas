@@ -188,4 +188,8 @@ public class DAO {
 
     }
 
+    public String promedioAlumno(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
