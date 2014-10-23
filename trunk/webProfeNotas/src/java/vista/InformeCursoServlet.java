@@ -8,11 +8,22 @@ package vista;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import modelo.Alumno;
+import modelo.Curso;
+import modelo.DAO;
+import modelo.Profesor;
+import modelo.excepciones.URLException;
 
 /**
  *
@@ -35,13 +46,42 @@ public class InformeCursoServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            
+            List<Alumno> alumnos = null;
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet InformeCursoServlet</title>");            
             out.println("</head>");
             out.println("<body>");
+            
             out.println("<h1>Servlet InformeCursoServlet at " + request.getContextPath() + "</h1>");
+            
+            
+             out.println("<form action='InformeCursoServlet.view' method='post'>");
+                    out.println("<input type='text' required='required' placeholder='Buscar por nombre o por Rut' name='txtBuscar'/>");
+                    out.println("<input type='submit' value='Buscar'/>");
+                out.println("</form>");
+                
+                  out.println("<table border='1'>");
+                    out.println("<tr>");
+                        out.println("<th>RUT</th>");
+                        out.println("<th>Nombre</th>");
+                        out.println("<th>Promedio</th>");
+                    out.println("</tr>");
+                    
+                for(Alumno a : alumnos){
+                     out.println("<tr>");
+                        out.println("<td>"+a.getRut()+"</td>");
+                        out.println("<td>"+a.getNombre()+"</td>");
+                        out.println("<td>"+null+"</td>");
+                       
+                    out.println("</tr>");
+                }
+                out.println("</table>");
+                out.println("<a href='menu.view'>Volver </a>");
+            
+            
             out.println("</body>");
             out.println("</html>");
         }
