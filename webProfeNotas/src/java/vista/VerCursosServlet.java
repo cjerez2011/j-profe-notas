@@ -48,6 +48,8 @@ public class VerCursosServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Cursos de: " + nombre + "</h1>");
+            
+            out.println("<a href='InformeCursoServlet.view'>informe curso</a><br/>");
 
 //            if(nombre.equalsIgnoreCase("Patricio Nicolás Pérez")){ 
             out.println("<form action='cursosview.view' method='post'>");
