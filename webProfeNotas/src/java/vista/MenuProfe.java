@@ -52,6 +52,8 @@ public class MenuProfe extends HttpServlet {
             out.println("<li><a href='#'>Log out</a></li>");
             out.println("</ul>");
             out.println("<div>");
+            
+            
             out.println("</body>");
             out.println("</html>");
         } catch (SQLException ex) {
