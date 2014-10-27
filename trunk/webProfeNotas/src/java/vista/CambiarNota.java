@@ -1,64 +1,53 @@
+
 package vista;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import modelo.DAO;
-import modelo.Profesor;
-import modelo.excepciones.URLException;
 
 /**
  *
- * @author Fco
+ * @author cjerez
  */
-@WebServlet(name = "MenuProfe", urlPatterns = {"/menu.view"})
-public class MenuProfe extends HttpServlet {
+@WebServlet(name = "CambiarNota", urlPatterns = {"/cambiarnota.view"})
+public class CambiarNota extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Profesor profeUp = (Profesor) session.getAttribute("profeUp");
-
-        if (profeUp == null) {
-            session.setAttribute("error", new URLException("Debe iniciar sesión para acceder."));
-            request.getRequestDispatcher("error.view").forward(request, response);
-        }
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            DAO dao = new DAO();
-            String nombre = dao.dameTuNombre(profeUp);
-            String rut=dao.dameTuRut(profeUp);
+            
+            
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<link rel='stylesheet' type='text/css' href='css/css2.css'/>");
-            out.println("<title>profeNotas</title>");
+            out.println("<title>Servlet CambiarNota</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Bienvenido profesor: " + nombre + "</h1>");
-            out.println("<div class='navigation'>");
-            out.println("<ul>");
-            out.println("<li><a href='cursos.view'>Ver cursos</a></li>");
-            out.println("<li><a href='#'>Agenda</a></li>");
-            out.println("<li><a href='#'>Log out</a></li>");
-            out.println("<li><a href='cambiarnota.view'>Cambiar Notas</a></li>");
-            out.println("</ul>");
-            out.println("<div>");
+            
+                       
+            
+            out.println("<h1>Servlet CambiarNota at " + request.getContextPath() + "</h1>");
+            
             
             
             out.println("</body>");
             out.println("</html>");
-        } catch (SQLException ex) {
-            Logger.getLogger(MenuProfe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
