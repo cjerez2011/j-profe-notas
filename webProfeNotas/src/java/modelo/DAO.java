@@ -156,7 +156,7 @@ public class DAO {
         }
         return cursos;
     }
-
+        
     public int promedioCurso(int id) {
 
         int promedio = 0;
@@ -224,9 +224,22 @@ public class DAO {
         }
 
     }
-    
-    
+        //metodo para Cambiar notas
+    public void CambiarNota(Nota n) {
+        Nota no = new Nota();
+        try {
+            String update = "update notas set nota=?, porcentaje_nota=?, descripcion=?, alumno=?, curso=? where id=1"; 
+                        
+            con.sentencia = con.conexion.createStatement();
+            con.sentencia.execute(update);
+            con.sentencia.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
+
+}
 
 
 

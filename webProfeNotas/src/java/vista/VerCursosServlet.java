@@ -58,7 +58,7 @@ public class VerCursosServlet extends HttpServlet {
 
             for (Curso c : cur) {
 
-                out.println("<input type='submit' value='" + c.getNombre() + "' class='botonCurso'/></br>");
+            out.println("<input type='submit' value='" + c.getNombre() + "' class='botonCurso'/></br>");
             out.println("<input type='hidden' value='"+c.getId()+"' class='botonCurso' name='idCurso'/></br>");
             }
 
