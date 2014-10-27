@@ -188,8 +188,8 @@ public class DAO {
 
     }
 
-    public String promedioAlumno(int id) {
-        return null;
+    public int promedioAlumno() {
+        return 0;
         
         
     }

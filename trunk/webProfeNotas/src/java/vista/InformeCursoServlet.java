@@ -48,10 +48,19 @@ public class InformeCursoServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-            DAO dao = new DAO();
-            int id = 0;
+             HttpSession session = request.getSession();
+            Profesor profeUp = (Profesor) session.getAttribute("profeUp");
 
-             List<CursoAlumno> lista = dao.listaJavaWeb(id);
+            if (profeUp == null) {
+                session.setAttribute("error", new URLException("Debe iniciar sesión para acceder."));
+                request.getRequestDispatcher("error.view").forward(request, response);
+            }
+            
+             DAO dao = new DAO();
+            String nombre = dao.dameTuNombre(profeUp);
+            String rut = dao.dameTuRut(profeUp);
+           List<Curso> cur = new ArrayList<Curso>();
+            cur = dao.CargarCursos(rut);
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -74,11 +83,13 @@ public class InformeCursoServlet extends HttpServlet {
                         out.println("<th>Promedio</th>");
                     out.println("</tr>");
                     
-                for(CursoAlumno a : lista){
+                    
+                    
+                for(Curso c : cur){
                      out.println("<tr>");
-                        out.println("<td>"+a.getRut()+"</td>");
-                        out.println("<td>"+a.getNombre()+"</td>");
-                        out.println("<td>"+dao.promedioAlumno(id)+"</td>");
+                        out.println("<td>"+c.getId()+"</td>");
+                        out.println("<td>"+c.getNombre()+"</td>");
+                        out.println("<td>"+dao.promedioAlumno()+"</td>");
                        
                     out.println("</tr>");
                 }
