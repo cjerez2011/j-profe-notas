@@ -1,8 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -11,39 +18,50 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.CursoAlumno;
 import modelo.DAO;
-import modelo.Profesor;
-import modelo.excepciones.SessionFailException;
+import modelo.Nota;
 
 /**
  *
  * @author Fco
  */
-@WebServlet(name = "ValidarSesionProfe", urlPatterns = {"/validateProfe.do"})
-public class ValidarSesionProfe extends HttpServlet {
+@WebServlet(name = "AgregarNotaSerlvlet", urlPatterns = {"/agregarNota.do"})
+public class AgregarNotaServlet extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+             HttpSession session = request.getSession();
+          int cursoId = (int)session.getAttribute("curso");
+          int nota;
         try {
-            response.setContentType("text/html;charset=UTF-8");
-            String run, pass;
-            run = request.getParameter("txtRun");
-            pass = request.getParameter("txtPass");
-            Profesor up = new Profesor(run, pass);
             DAO dao = new DAO();
-//            int conexion = dao.exist(run, pass);
-            Profesor profe = dao.exist(up);
-            HttpSession session = request.getSession();
-            session.setAttribute("profeUp", profe);
-            request.getRequestDispatcher("menu.view").forward(request, response);
+            List<CursoAlumno> curso = dao.curso(cursoId);
+            for(CursoAlumno a : curso){
+                nota = Integer.parseInt(request.getParameter(a.getRut()));
+                int porcent = Integer.parseInt(request.getParameter("porcentaje"));
+                String comentario = request.getParameter("comentario");
+                int idAlumno = a.getId();
+               
+                Nota n = new Nota(nota,porcent,comentario,cursoId,idAlumno);
+                System.out.println(n);
+                dao.addNota(n);
+               
+            }
+             request.getRequestDispatcher("cursos.view").forward(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ValidarSesionProfe.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SessionFailException ex) {
-            HttpSession session = request.getSession();
-            session.setAttribute("error", ex);
-            request.getRequestDispatcher("error.view").forward(request, response);
+            Logger.getLogger(AgregarNotaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
