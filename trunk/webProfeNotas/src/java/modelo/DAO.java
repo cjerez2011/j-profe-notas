@@ -16,10 +16,10 @@ public class DAO {
     private Conexion con;
     public List<Profesor> profes;
     private List<Alumno> alumnos;
-    private List<Curso> cursos;
+    private List<CursoProfe> cursos;
 
     public DAO() throws SQLException {
-        con = new Conexion("localhost", "colegio", "root", "");
+        con = new Conexion("localhost", "colegio", "root", "mysql");
         cargarProfes();
     }
 
@@ -91,23 +91,20 @@ public class DAO {
     }
 
     public List listaJavaWeb(int id) {
-        int num = 0;
-
-        String select = "select a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota,b.descripcion, c.nombre as 'Curso'  from alumno a, notas b, curso c where b.alumno = a.id  and b.curso = c.id and c.id = " + id + "";
+         String select = "select a.id, a.rut, a.nombre, a.ape_pat, a.ape_mat from alumno a, curso c, curso_alumno ca where c.id = ca.curso and ca.alumno = a.id  and c.id = '" + id + "';";
         List<CursoAlumno> lista = new ArrayList<>();
         try {
 
             con.sentencia = con.conexion.createStatement();
             con.tablaResultado = con.sentencia.executeQuery(select);
             while (con.tablaResultado.next()) {
+                int idd = con.tablaResultado.getInt("id");
                 String rut = con.tablaResultado.getString("rut");
                 String nombre = con.tablaResultado.getString("nombre");
                 String apeP = con.tablaResultado.getString("ape_pat");
                 String apeM = con.tablaResultado.getString("ape_mat");
-                int nota = con.tablaResultado.getInt("nota");
-                String descri = con.tablaResultado.getString("descripcion");
-                String curso = con.tablaResultado.getString("curso");
-                CursoAlumno c = new CursoAlumno(rut, nombre, apeP, apeM, nota, descri, curso);
+
+                CursoAlumno c = new CursoAlumno(idd, rut, nombre, apeP, apeM);
                 lista.add(c);
             }
             con.sentencia.close();
@@ -118,19 +115,19 @@ public class DAO {
     }
 
     //metodo para insertar notas
-    public void insertarNota(Nota n) {
-        Nota no = new Nota();
-        try {
-            String insert = "insert into notas values(null,'" + no.getNota() + "','" + no.getPorcentaje() + "','" + no.getAlumno().getId() + "','" + no.getCurso().getId() + "')";
-
-            con.sentencia = con.conexion.createStatement();
-            con.sentencia.execute(insert);
-            con.sentencia.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
+//    public void insertarNota(Nota n) {
+//        Nota no = new Nota();
+//        try {
+//            String insert = "insert into notas values(null,'" + no.getNota() + "','" + no.getPorcentaje() + "','" + no.getAlumno().getId() + "','" + no.getCurso().getId() + "')";
+//
+//            con.sentencia = con.conexion.createStatement();
+//            con.sentencia.execute(insert);
+//            con.sentencia.close();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
 
     public List CargarCursos(String rut) {
 
@@ -226,7 +223,7 @@ public class DAO {
     }
         //metodo para Cambiar notas
     public void CambiarNota(Nota n) {
-        Nota no = new Nota();
+//        Nota no = new Nota();
         try {
             String update = "update notas set nota=?, porcentaje_nota=?, descripcion=?, alumno=?, curso=? where id=1"; 
                         
@@ -238,7 +235,62 @@ public class DAO {
         }
 
     }
+    public List curso(int id) {
+        String select = "select a.id, a.rut, a.nombre, a.ape_pat, a.ape_mat from alumno a, curso c, curso_alumno ca where c.id = ca.curso and ca.alumno = a.id  and c.id = '" + id + "';";
+        List<CursoAlumno> lista = new ArrayList<>();
+        try {
 
+            con.sentencia = con.conexion.createStatement();
+            con.tablaResultado = con.sentencia.executeQuery(select);
+            while (con.tablaResultado.next()) {
+                int idd = con.tablaResultado.getInt("id");
+                String rut = con.tablaResultado.getString("rut");
+                String nombre = con.tablaResultado.getString("nombre");
+                String apeP = con.tablaResultado.getString("ape_pat");
+                String apeM = con.tablaResultado.getString("ape_mat");
+
+                CursoAlumno c = new CursoAlumno(idd, rut, nombre, apeP, apeM);
+                lista.add(c);
+            }
+            con.sentencia.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+
+    public List<CursoProfe> listaCursos(String rut) {
+        String select = "select curso.id,curso.nombre from curso, profesor where curso.profesor = profesor.rut and profesor.rut = '" + rut + "'";
+        cursos = new ArrayList<>();
+        try {
+            con.sentencia = con.conexion.createStatement();
+            con.tablaResultado = con.sentencia.executeQuery(select);
+            while (con.tablaResultado.next()) {
+                int id = con.tablaResultado.getInt("id");
+                String nombre = con.tablaResultado.getString("nombre");
+                CursoProfe p = new CursoProfe(id, nombre);
+                cursos.add(p);
+            }
+            con.sentencia.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cursos;
+
+    }
+     public void addNota(Nota nuevo) throws SQLException {
+        String insert = "insert into notas "
+                + "values("
+                + "null,"
+                + "'" + nuevo.getNota() + "',"
+                + "'" + nuevo.getPorcentaje() + "',"
+                + "'" + nuevo.getDescripcion() + "',"
+                + "'" + nuevo.getCurso() + "',"
+                + "'" + nuevo.getAlumno() + "')";
+        con.sentencia = con.conexion.createStatement();
+        con.sentencia.execute(insert);
+        con.sentencia.close();
+    }
 }
 
 

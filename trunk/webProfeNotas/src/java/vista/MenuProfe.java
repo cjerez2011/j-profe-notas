@@ -49,7 +49,7 @@ public class MenuProfe extends HttpServlet {
             out.println("<ul>");
             out.println("<li><a href='cursos.view'>Ver cursos</a></li>");
             out.println("<li><a href='#'>Agenda</a></li>");
-            out.println("<li><a href='#'>Log out</a></li>");
+            out.println("<li><a href='logOut.do'>Log out</a></li>");
             out.println("<li><a href='cambiarnota.view'>Cambiar Notas</a></li>");
             out.println("</ul>");
             out.println("<div>");
