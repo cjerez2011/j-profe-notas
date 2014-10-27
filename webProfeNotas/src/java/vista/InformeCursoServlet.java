@@ -59,8 +59,12 @@ public class InformeCursoServlet extends HttpServlet {
              DAO dao = new DAO();
             String nombre = dao.dameTuNombre(profeUp);
             String rut = dao.dameTuRut(profeUp);
+            
+            
            List<Curso> cur = new ArrayList<Curso>();
             cur = dao.CargarCursos(rut);
+           
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -68,7 +72,7 @@ public class InformeCursoServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             
-            out.println("<h1>Servlet InformeCursoServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Informe De Notas " + cur + "</h1>");
             
             
              out.println("<form action='InformeCursoServlet.view' method='post'>");

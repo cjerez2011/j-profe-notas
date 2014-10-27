@@ -71,6 +71,10 @@ public class CursosView extends HttpServlet {
             
             
              out.println("<h1>Promedio Curso    "+prom+"</h1>");
+             
+             
+             
+              out.println("<a href='InformeCursoServlet.view'>informe curso</a><br/>");
             out.println("</body>");
             out.println("</html>");
         } catch (SQLException ex) {
