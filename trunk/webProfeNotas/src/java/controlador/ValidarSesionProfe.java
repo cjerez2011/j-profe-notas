@@ -31,6 +31,7 @@ public class ValidarSesionProfe extends HttpServlet {
             pass = request.getParameter("txtPass");
             Profesor up = new Profesor(run, pass);
             DAO dao = new DAO();
+            System.out.println("");
 //            int conexion = dao.exist(run, pass);
             Profesor profe = dao.exist(up);
             HttpSession session = request.getSession();
