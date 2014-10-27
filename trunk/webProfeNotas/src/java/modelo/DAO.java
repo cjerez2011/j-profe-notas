@@ -194,6 +194,37 @@ public class DAO {
         
     }
     
+    public void cargarAlumnos() {
+        alumnos = new ArrayList<>();
+        String rut, nombre, apePaterno, apeMaterno, sexo;
+        int edad, id;
+
+        try {
+            String select = "SELECT * FROM alumno;";
+
+            con.sentencia = con.conexion.createStatement();
+            con.tablaResultado = con.sentencia.executeQuery(select);
+
+            while (con.tablaResultado.next()) {
+                id = con.tablaResultado.getInt("id");
+                rut = con.tablaResultado.getString("rut");
+                nombre = con.tablaResultado.getString("nombre");
+                apePaterno = con.tablaResultado.getString("ape_pat");
+                apeMaterno = con.tablaResultado.getString("ape_mat");
+                edad = con.tablaResultado.getInt("edad");
+                sexo = con.tablaResultado.getString("sexo");
+                
+
+                Alumno alu = new Alumno(id,rut, nombre, apePaterno, apeMaterno, edad, sexo);
+                alumnos.add(alu);
+            }
+            con.sentencia.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
     
     }
 

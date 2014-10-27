@@ -57,12 +57,25 @@ public class InformeCursoServlet extends HttpServlet {
             }
             
              DAO dao = new DAO();
+             
+              
+            
             String nombre = dao.dameTuNombre(profeUp);
             String rut = dao.dameTuRut(profeUp);
             
             
+            
+            
            List<Curso> cur = new ArrayList<Curso>();
             cur = dao.CargarCursos(rut);
+            
+//             List<Alumno> alum = new ArrayList<Alumno>();
+//            alum = dao.cargarAlumnos();
+//            
+            
+            int id = 0;
+
+            List<CursoAlumno> lista = dao.listaJavaWeb(id);
            
             
             out.println("<!DOCTYPE html>");
@@ -75,25 +88,25 @@ public class InformeCursoServlet extends HttpServlet {
             out.println("<h1>Informe De Notas " + cur + "</h1>");
             
             
-             out.println("<form action='InformeCursoServlet.view' method='post'>");
+             out.println("<form  action='InformeCursoServlet.view' method='post'>");
                     out.println("<input type='text' required='required' placeholder='Buscar por nombre o por Rut' name='txtBuscar'/>");
                     out.println("<input type='submit' value='Buscar'/>");
                 out.println("</form>");
                 
-                  out.println("<table border='1'>");
+                  out.println("<table  class='tablaDatos'>");
                     out.println("<tr>");
-                        out.println("<th>RUT</th>");
-                        out.println("<th>Nombre</th>");
-                        out.println("<th>Promedio</th>");
+                        out.println("<th class='titulosTabla'>RUT</th>");
+                        out.println("<th class='titulosTabla'>Nombre</th>");
+                        out.println("<th class='titulosTabla'>Promedio</th>");
                     out.println("</tr>");
                     
                     
                     
-                for(Curso c : cur){
+                for(CursoAlumno a : lista){
                      out.println("<tr>");
-                        out.println("<td>"+c.getId()+"</td>");
-                        out.println("<td>"+c.getNombre()+"</td>");
-                        out.println("<td>"+dao.promedioAlumno()+"</td>");
+                        out.println("<td class='datos'>"+a.getRut()+"</td>");
+                        out.println("<td class='datos'>"+a.getNombre()+"</td>");
+                        out.println("<td class='datos'>"+dao.promedioAlumno()+"</td>");
                        
                     out.println("</tr>");
                 }
