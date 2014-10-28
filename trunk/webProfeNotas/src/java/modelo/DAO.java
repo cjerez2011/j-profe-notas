@@ -19,7 +19,7 @@ public class DAO {
     private List<CursoProfe> cursos;
 
     public DAO() throws SQLException {
-        con = new Conexion("localhost", "colegio", "root", "mysql");
+        con = new Conexion("localhost", "colegio", "root", "");
         cargarProfes();
     }
 
@@ -156,38 +156,33 @@ public class DAO {
         
     public int promedioCurso(int id) {
 
+       
         int promedio = 0;
 
-        try {
+//        try {
 
-            String select = " select   round(sum(nota)/count(nota))      from   notas "
-                    + " where  notas.curso = " + id + "";
+//            String select = " select   round(sum(nota)/count(nota))      from   notas "
+//                    + " where  notas.curso = " + id + "";
+//
+//            con.sentencia = con.conexion.createStatement();
+//
+//            con.tablaResultado = con.sentencia.executeQuery(select);
+//
+//            while (con.tablaResultado.next()) {
+//
+//                promedio = con.tablaResultado.getInt("round(sum(nota)/count(nota))");
+//
+//            }
+//
+//            con.sentencia.close();
 
-            con.sentencia = con.conexion.createStatement();
-
-            con.tablaResultado = con.sentencia.executeQuery(select);
-
-            while (con.tablaResultado.next()) {
-
-                promedio = con.tablaResultado.getInt("round(sum(nota)/count(nota))");
-
-            }
-
-            con.sentencia.close();
-
-        } catch (SQLException ex) {
-
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
+//        } catch (SQLException ex) {
+//
+//            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+//
+//        }
 
         return promedio;
-
-    }
-
-    public int promedioAlumno() {
-        return 0;
-        
         
     }
     
@@ -290,6 +285,10 @@ public class DAO {
         con.sentencia = con.conexion.createStatement();
         con.sentencia.execute(insert);
         con.sentencia.close();
+    }
+
+    public String promedioAlumno() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 
