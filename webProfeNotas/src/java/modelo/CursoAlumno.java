@@ -5,7 +5,7 @@ package modelo;
  * @author Fco
  */
 public class CursoAlumno {
-    private int id;
+
     private String rut;
     private String nombre;
     private String apePa;
@@ -14,64 +14,28 @@ public class CursoAlumno {
     private String descripcion;
     private String curso;
 
-    public CursoAlumno(String rut, String nombre, String apePa, String apeMa, int nota, String descripcion) {
+    public CursoAlumno(String nombre, String apePa, String apeMa, String curso) {
+        this.nombre = nombre;
+        this.apePa = apePa;
+        this.apeMa = apeMa;
+        this.curso = curso;
+    }
+    
+    
+    
+
+    public CursoAlumno(String rut, String nombre, String apePa, String apeMa, int nota, String descripcion, String curso) {
         this.rut = rut;
         this.nombre = nombre;
         this.apePa = apePa;
         this.apeMa = apeMa;
         this.nota = nota;
+        this.curso = curso;
         this.descripcion = descripcion;
     }
-
-    CursoAlumno(int id,String rut, String nombre, String apePa, String apeMa) {
-        this.id = id;
-        this.rut = rut;
-        this.nombre = nombre;
-        this.apePa = apePa;
-        this.apeMa = apeMa;
-    }
-
-    public CursoAlumno(String rut, String nombre, String apePa, String apeMa, int nota) {
-        this.rut = rut;
-        this.nombre = nombre;
-        this.apePa = apePa;
-        this.apeMa = apeMa;
-        this.nota = nota;
-    }
-
-    public CursoAlumno(String rut, String nombre, int nota){
-        this.rut = rut;
-        this.nombre = nombre;
-        this.nota = nota;
-    }
-    public CursoAlumno(int id,String rut,int nota, String descripcion){
-        this.id = id;
-        this.rut = rut;
-        this.nota = nota;
-        this.descripcion = descripcion;
-    }
-
-    public CursoAlumno(int id, String rut, String nombre, String apePa, int nota, String descripcion) {
-        this.id = id;
-        this.rut = rut;
-        this.nombre = nombre;
-        this.apePa = apePa;
-        this.nota = nota;
-        this.descripcion = descripcion;
-    }
-
-
 
     public String getDescripcion() {
         return descripcion;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setDescripcion(String descripcion) {

@@ -1,34 +1,48 @@
 package modelo;
 
-/**
- *
- * @author Fco
- */
 public class Nota {
+
     private int id;
-    private int nota;
+    private float nota;
     private int porcentaje;
     private String descripcion;
-    private int alumno;
-    private int curso;
+    private Alumno alumno;
+    private Curso curso;
 
-    public Nota(int id, int nota, int porcentaje, String descripcion, int alumno, int curso) {
+    public Nota() {
+    }
+
+    public Nota(int id, float nota, int porcentaje, String descripcion) {
         this.id = id;
         this.nota = nota;
         this.porcentaje = porcentaje;
         this.descripcion = descripcion;
+    }
+    
+    
+
+    public Nota(float nota, int porcentaje, String descripcion, Alumno alumno, Curso curso) {
+        this.nota = nota;
+        this.porcentaje = porcentaje;
         this.alumno = alumno;
         this.curso = curso;
     }
 
-    public Nota(int nota, int porcentaje, String descripcion, int alumno, int curso) {
+    public Nota(int id, float nota, String descripcion, int porcentaje, Alumno alumno, Curso curso) {
+        this.id = id;
         this.nota = nota;
         this.porcentaje = porcentaje;
-        this.descripcion = descripcion;
         this.alumno = alumno;
         this.curso = curso;
     }
-    
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
     public int getId() {
         return id;
@@ -38,11 +52,11 @@ public class Nota {
         this.id = id;
     }
 
-    public int getNota() {
+    public float getNota() {
         return nota;
     }
 
-    public void setNota(int nota) {
+    public void setNota(float nota) {
         this.nota = nota;
     }
 
@@ -54,34 +68,25 @@ public class Nota {
         this.porcentaje = porcentaje;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public int getAlumno() {
+    public Alumno getAlumno() {
         return alumno;
     }
 
-    public void setAlumno(int alumno) {
+    public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
     }
 
-    public int getCurso() {
+    public Curso getCurso() {
         return curso;
     }
 
-    public void setCurso(int curso) {
+    public void setCurso(Curso curso) {
         this.curso = curso;
     }
 
     @Override
     public String toString() {
-        return id+ " "+nota+" "+porcentaje+" "+descripcion+" "+alumno+" "+curso;
+        return nota + "" + porcentaje + "" + descripcion + "" + alumno + "" + curso;
     }
 
-    
 }

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelo.Curso;
-import modelo.CursoProfe;
 import modelo.DAO;
 import modelo.Profesor;
 import modelo.excepciones.URLException;
@@ -30,7 +29,7 @@ public class VerCursosServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-   
+            /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             Profesor profeUp = (Profesor) session.getAttribute("profeUp");
 
@@ -40,23 +39,48 @@ public class VerCursosServlet extends HttpServlet {
             }
             DAO dao = new DAO();
             String nombre = dao.dameTuNombre(profeUp);
-            String rut = profeUp.getRut();
-           
-            List<CursoProfe>cursos=dao.listaCursos(rut);
+            String rut = dao.dameTuRut(profeUp);
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet VerCursosServlet</title>");        
+            out.println("<title>Servlet VerCursosServlet</title>");
             out.println("<link rel='stylesheet' type='text/css' href='css/css3.css'/>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Cursos de: "+nombre+"</h1>");
-            for(CursoProfe c : cursos){
-            out.println("<form action='cursosview.view' method='post'>");
-            out.println("<input type='submit' value='"+c.getNombre()+"' class='botonCurso'/></br>");
-            out.println("<input type='hidden' name='idCurso' value='"+c.getId()+"'/>");
-            out.println("</form>"); 
-            }    
+            out.println("<h1>Cursos de: " + nombre + "</h1>");
+
+//            if(nombre.equalsIgnoreCase("Patricio Nicolás Pérez")){ 
+            out.println("<form action='cursosview.view' method='get'>");
+            List<Curso> cur = new ArrayList<Curso>();
+            cur = dao.CargarCursos(rut);
+
+            for (Curso c : cur) {
+
+                out.println("<input type='submit' value='" + c.getNombre() + "'class='botonCurso'/></br>");
+                out.println("<input type='hidden' value='" + c.getId() + "' class='botonCurso' name='idCurso'/></br>");
+
+                // out.println("<h1>"+c.getId()+"</h1>");
+            }
+
+//            
+//            
+            out.println("</form>");
+//            out.println("<form action='#' method='post'>");
+//            out.println("<input type='submit' value='Base de datos I' class='botonCurso'/></br>");
+//            out.println("</form>");    
+//            out.println("<form action='#' method='post'>");
+//            out.println("<input type='submit' value='SO' class='botonCurso'/></br>");
+//            out.println("</form>");        
+//            }else{
+//            out.println("</form>");    
+//            out.println("<form action='#' method='post'>");
+//            out.println("<input type='submit' value='Introducción a la programación' class='botonCurso'/></br>");
+//            out.println("</form>");  
+//            out.println("</form>");    
+//            out.println("<form action='algoritmos.view' method='post'>");
+//            out.println("<input type='submit' value='Algoritmos' class='botonCurso'/></br>");
+//            out.println("</form>");  
+//            }
             out.println("</body>");
             out.println("</html>");
         } catch (SQLException ex) {
