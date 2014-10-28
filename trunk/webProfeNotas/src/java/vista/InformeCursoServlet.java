@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import modelo.Alumno;
 import modelo.Curso;
 import modelo.CursoAlumno;
+import modelo.CursoProfe;
 import modelo.DAO;
 import modelo.Profesor;
 import modelo.excepciones.URLException;
@@ -47,35 +48,50 @@ public class InformeCursoServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
-             HttpSession session = request.getSession();
+          int id = Integer.parseInt(request.getParameter("idCurso"));
+            HttpSession session = request.getSession();
             Profesor profeUp = (Profesor) session.getAttribute("profeUp");
+            
+            session.setAttribute("curso", id);
 
-            if (profeUp == null) {
+              if (profeUp == null) {
                 session.setAttribute("error", new URLException("Debe iniciar sesión para acceder."));
                 request.getRequestDispatcher("error.view").forward(request, response);
             }
+            String rut = profeUp.getRut();
+            String nomb = "";
+            
             
              DAO dao = new DAO();
              
               
             
-            String nombre = dao.dameTuNombre(profeUp);
-            String rut = dao.dameTuRut(profeUp);
+//            String nombre = dao.dameTuNombre(profeUp);
+//            String rut = dao.dameTuRut(profeUp);
             
             
             
             
-           List<Curso> cur = new ArrayList<Curso>();
-            cur = dao.CargarCursos(rut);
+//           List<Curso> cur = new ArrayList<Curso>();
+//            cur = dao.CargarCursos(rut);
             
 //             List<Alumno> alum = new ArrayList<Alumno>();
 //            alum = dao.cargarAlumnos();
 //            
             
-            int id = 0;
+//            int id = 0;
+            
 
-            List<CursoAlumno> lista = dao.listaJavaWeb(id);
+            List<CursoAlumno> lista = dao.curso(id);
+            
+          
+            
+            List<CursoProfe>cursos = dao.listaCursos(rut);
+            for(CursoProfe c : cursos){
+                if(c.getId() == id){
+                   nomb = c.getNombre();
+                }
+            }
            
             
             out.println("<!DOCTYPE html>");
@@ -85,7 +101,7 @@ public class InformeCursoServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             
-            out.println("<h1>Informe De Notas " + cur + "</h1>");
+            out.println("<h1>Informe De Notas " + nomb + "</h1>");
             
             
              out.println("<form  action='InformeCursoServlet.view' method='post'>");
