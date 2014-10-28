@@ -1,5 +1,6 @@
 package modelo;
 
+import static java.lang.System.out;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,8 @@ public class DAO {
     private Conexion con;
     public List<Profesor> profes;
     private List<Alumno> alumnos;
-    private List<CursoProfe> cursos;
+    private List<Curso> cursos;
+    private List<Nota> notas;
 
     public DAO() throws SQLException {
         con = new Conexion("localhost", "colegio", "root", "");
@@ -91,20 +93,23 @@ public class DAO {
     }
 
     public List listaJavaWeb(int id) {
-         String select = "select a.id, a.rut, a.nombre, a.ape_pat, a.ape_mat from alumno a, curso c, curso_alumno ca where c.id = ca.curso and ca.alumno = a.id  and c.id = '" + id + "';";
+        int num = 0;
+
+        String select = "select a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota,b.descripcion, c.nombre as 'Curso'  from alumno a, notas b, curso c where b.alumno = a.id  and b.curso = c.id and c.id = " + id + "";
         List<CursoAlumno> lista = new ArrayList<>();
         try {
 
             con.sentencia = con.conexion.createStatement();
             con.tablaResultado = con.sentencia.executeQuery(select);
             while (con.tablaResultado.next()) {
-                int idd = con.tablaResultado.getInt("id");
                 String rut = con.tablaResultado.getString("rut");
                 String nombre = con.tablaResultado.getString("nombre");
                 String apeP = con.tablaResultado.getString("ape_pat");
                 String apeM = con.tablaResultado.getString("ape_mat");
-
-                CursoAlumno c = new CursoAlumno(idd, rut, nombre, apeP, apeM);
+                int nota = con.tablaResultado.getInt("nota");
+                String descri = con.tablaResultado.getString("descripcion");
+                String curso = con.tablaResultado.getString("curso");
+                CursoAlumno c = new CursoAlumno(rut, nombre, apeP, apeM, nota, descri, curso);
                 lista.add(c);
             }
             con.sentencia.close();
@@ -115,19 +120,19 @@ public class DAO {
     }
 
     //metodo para insertar notas
-//    public void insertarNota(Nota n) {
-//        Nota no = new Nota();
-//        try {
-//            String insert = "insert into notas values(null,'" + no.getNota() + "','" + no.getPorcentaje() + "','" + no.getAlumno().getId() + "','" + no.getCurso().getId() + "')";
-//
-//            con.sentencia = con.conexion.createStatement();
-//            con.sentencia.execute(insert);
-//            con.sentencia.close();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//    }
+    public void insertarNota(Nota n) {
+        Nota no = new Nota();
+        try {
+            String insert = "insert into notas values(null,'" + no.getNota() + "','" + no.getPorcentaje() + "','" + no.getAlumno().getId() + "','" + no.getCurso().getId() + "')";
+
+            con.sentencia = con.conexion.createStatement();
+            con.sentencia.execute(insert);
+            con.sentencia.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
     public List CargarCursos(String rut) {
 
@@ -153,144 +158,99 @@ public class DAO {
         }
         return cursos;
     }
-        
+
     public int promedioCurso(int id) {
 
-       
         int promedio = 0;
 
-//        try {
+        try {
 
-//            String select = " select   round(sum(nota)/count(nota))      from   notas "
-//                    + " where  notas.curso = " + id + "";
-//
-//            con.sentencia = con.conexion.createStatement();
-//
-//            con.tablaResultado = con.sentencia.executeQuery(select);
-//
-//            while (con.tablaResultado.next()) {
-//
-//                promedio = con.tablaResultado.getInt("round(sum(nota)/count(nota))");
-//
-//            }
-//
-//            con.sentencia.close();
+            String select = " select   round(sum(nota)/count(nota))      from   notas "
+                    + " where  notas.curso = " + id + "";
 
-//        } catch (SQLException ex) {
-//
-//            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-//
-//        }
+            con.sentencia = con.conexion.createStatement();
+
+            con.tablaResultado = con.sentencia.executeQuery(select);
+
+            while (con.tablaResultado.next()) {
+
+                promedio = con.tablaResultado.getInt("round(sum(nota)/count(nota))");
+
+            }
+
+            con.sentencia.close();
+
+        } catch (SQLException ex) {
+
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
 
         return promedio;
+
+    }
+
+    public int  TraerIdAlumno (String rut) throws SQLException {
         
+       
+        String select = "select id from alumno where rut = " + rut +"";
+
+        con.sentencia = con.conexion.createStatement();
+
+        con.tablaResultado = con.sentencia.executeQuery(select);
+
+        int id = con.tablaResultado.getInt("id");
+
+        con.sentencia.close();
+        return id;
+
+    }
+
+    public String TraerNombreCurso(int id) throws SQLException {
+
+        String select = " select  nombre  from   curso "
+                + " where  id = " + id + "";
+
+        con.sentencia = con.conexion.createStatement();
+
+        con.tablaResultado = con.sentencia.executeQuery(select);
+
+        String nombreCurso = con.tablaResultado.getString("nombre");
+
+        con.sentencia.close();
+
+        return nombreCurso;
+
     }
     
-    public void cargarAlumnos() {
-        alumnos = new ArrayList<>();
-        String rut, nombre, apePaterno, apeMaterno, sexo;
-        int edad, id;
-
+    public List listaNotas(String rut, int id) {
+        
+        String select = "select a.id, a.nota, a.porcentaje_nota, a.descripcion, b.id as id_Alumno, b.rut from notas a, alumno b " +
+"where b.rut ='"+rut+"' and a.curso = "+id+" and a.alumno = b.id";
+       
+        List<Nota> notas = new ArrayList<>();
         try {
-            String select = "SELECT * FROM alumno;";
 
             con.sentencia = con.conexion.createStatement();
             con.tablaResultado = con.sentencia.executeQuery(select);
-
             while (con.tablaResultado.next()) {
-                id = con.tablaResultado.getInt("id");
-                rut = con.tablaResultado.getString("rut");
-                nombre = con.tablaResultado.getString("nombre");
-                apePaterno = con.tablaResultado.getString("ape_pat");
-                apeMaterno = con.tablaResultado.getString("ape_mat");
-                edad = con.tablaResultado.getInt("edad");
-                sexo = con.tablaResultado.getString("sexo");
+                int idNota = con.tablaResultado.getInt("id");
+                Float not = con.tablaResultado.getFloat("nota");
+                int porc = con.tablaResultado.getInt("porcentaje_nota");
+                String desc = con.tablaResultado.getString("descripcion");
                 
-
-                Alumno alu = new Alumno(id,rut, nombre, apePaterno, apeMaterno, edad, sexo);
-                alumnos.add(alu);
+               Nota n = new Nota(idNota,not,porc,desc);
+                notas.add(n);
             }
             con.sentencia.close();
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-    }
-        //metodo para Cambiar notas
-    public void CambiarNota(Nota n) {
-//        Nota no = new Nota();
-        try {
-            String update = "update notas set nota=?, porcentaje_nota=?, descripcion=?, alumno=?, curso=? where id=1"; 
-                        
-            con.sentencia = con.conexion.createStatement();
-            con.sentencia.execute(update);
-            con.sentencia.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-    public List curso(int id) {
-        String select = "select a.id, a.rut, a.nombre, a.ape_pat, a.ape_mat from alumno a, curso c, curso_alumno ca where c.id = ca.curso and ca.alumno = a.id  and c.id = '" + id + "';";
-        List<CursoAlumno> lista = new ArrayList<>();
-        try {
-
-            con.sentencia = con.conexion.createStatement();
-            con.tablaResultado = con.sentencia.executeQuery(select);
-            while (con.tablaResultado.next()) {
-                int idd = con.tablaResultado.getInt("id");
-                String rut = con.tablaResultado.getString("rut");
-                String nombre = con.tablaResultado.getString("nombre");
-                String apeP = con.tablaResultado.getString("ape_pat");
-                String apeM = con.tablaResultado.getString("ape_mat");
-
-                CursoAlumno c = new CursoAlumno(idd, rut, nombre, apeP, apeM);
-                lista.add(c);
-            }
-            con.sentencia.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return lista;
+        return notas;
     }
 
-    public List<CursoProfe> listaCursos(String rut) {
-        String select = "select curso.id,curso.nombre from curso, profesor where curso.profesor = profesor.rut and profesor.rut = '" + rut + "'";
-        cursos = new ArrayList<>();
-        try {
-            con.sentencia = con.conexion.createStatement();
-            con.tablaResultado = con.sentencia.executeQuery(select);
-            while (con.tablaResultado.next()) {
-                int id = con.tablaResultado.getInt("id");
-                String nombre = con.tablaResultado.getString("nombre");
-                CursoProfe p = new CursoProfe(id, nombre);
-                cursos.add(p);
-            }
-            con.sentencia.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return cursos;
+    
+    
+    
 
-    }
-     public void addNota(Nota nuevo) throws SQLException {
-        String insert = "insert into notas "
-                + "values("
-                + "null,"
-                + "'" + nuevo.getNota() + "',"
-                + "'" + nuevo.getPorcentaje() + "',"
-                + "'" + nuevo.getDescripcion() + "',"
-                + "'" + nuevo.getCurso() + "',"
-                + "'" + nuevo.getAlumno() + "')";
-        con.sentencia = con.conexion.createStatement();
-        con.sentencia.execute(insert);
-        con.sentencia.close();
-    }
-
-    public String promedioAlumno() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
-
-
-

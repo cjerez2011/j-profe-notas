@@ -79,7 +79,7 @@ create table notas(
 	foreign key(curso) references curso(id)
 );
 
-
+drop table notas;
 
 
 
@@ -138,6 +138,8 @@ select * from curso;
 select * from curso_alumno;
 select * from asistencia;
 select * from notas;
+
+
 
 
 
@@ -234,7 +236,7 @@ where b.alumno = a.id  and b.curso = c.id and c.id = 2;
 
 
 select   round(sum(nota)/count(nota))      from   notas 
- where  notas.curso = 2;
+ where  notas.curso = 1;
 
 
 
@@ -249,7 +251,11 @@ where  b.curso = c.id and a.rut =  '17687328-0';
 
 /* 4.- Ver información de alumnos bajo y alto rendimiento */
 
+select id from alumno
+where rut=17687328-0;
 
 
+select a.id, a.nota, a.porcentaje_nota, a.descripcion, b.id as id_Alumno, b.rut from notas a, alumno b
+where b.rut ='17687328-0'and a.curso = 2
 
 

@@ -36,7 +36,7 @@ public class MenuProfe extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             DAO dao = new DAO();
             String nombre = dao.dameTuNombre(profeUp);
-            String rut=dao.dameTuRut(profeUp);
+            String rut = dao.dameTuRut(profeUp);
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -44,17 +44,21 @@ public class MenuProfe extends HttpServlet {
             out.println("<title>profeNotas</title>");
             out.println("</head>");
             out.println("<body>");
+
+       
             out.println("<h1>Bienvenido profesor: " + nombre + "</h1>");
             out.println("<div class='navigation'>");
             out.println("<ul>");
             out.println("<li><a href='cursos.view'>Ver cursos</a></li>");
             out.println("<li><a href='#'>Agenda</a></li>");
-            out.println("<li><a href='logOut.do'>Log out</a></li>");
-            out.println("<li><a href='cambiarnota.view'>Cambiar Notas</a></li>");
+            out.println("<li><a href='#'>Log out</a></li>");
             out.println("</ul>");
             out.println("<div>");
             
             
+        
+
+           // out.println("<li><a href='informenotas.view'>Informe Notas Alumnos</a></li>");
             out.println("</body>");
             out.println("</html>");
         } catch (SQLException ex) {
