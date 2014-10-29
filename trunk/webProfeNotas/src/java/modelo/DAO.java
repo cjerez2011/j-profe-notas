@@ -299,14 +299,12 @@ public class DAO {
 //            public List listaJavaWeb(int id) {
 //        int num = 0;
 
-    /**
-     *
-     * @param nombre
-     * @return
-     */
-    public List<CursoAlumno> getNombre(String nombre){
-        List<CursoAlumno>listaxnombre;
-        listaxnombre = new ArrayList<>();
+    
+ 
+}
+       public List<CursoAlumno>FiltroXNombre(String nombre){
+        List<CursoAlumno>listaxnombre = new ArrayList<>();
+         
         try {
             con.sentencia = con.conexion.createStatement();
             String consulta = "select * from alumno where nombre LIKE '%"+nombre+"%'";
@@ -318,7 +316,7 @@ public class DAO {
                 String apeM = con.tablaResultado.getString("ape_mat");
                 int nota = con.tablaResultado.getInt("nota");
                 
-                CursoAlumno c = new CursoAlumno(rut, nombre, apeP, apeM);
+                CursoAlumno c = new CursoAlumno(rut, nombre, apeP, apeM, nota);
                 listaxnombre.add(c);
             }
             con.sentencia.close();
@@ -327,6 +325,8 @@ public class DAO {
         }
         return listaxnombre;
     }
-}
+    
+    
+    
 }
 
