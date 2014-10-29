@@ -39,12 +39,12 @@ public class CambiarNota extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-            /*String rut = request.getParameter("rut");                       
-            int idCurso = Integer.parseInt(request.getParameter("curso"));
+            String rut = request.getParameter("rut");                       
+            int idCurso = Integer.parseInt(request.getParameter("idNota"));
             
             DAO d = new DAO();
             List<CursoAlumno> lista = d.listaJavaWeb(idCurso);
-            List<Nota>notas=d.listaNotas(rut, idCurso);*/
+            List<Nota>notas=d.listaNotas(rut, idCurso);
           
                         
             out.println("<!DOCTYPE html>");
@@ -54,7 +54,7 @@ public class CambiarNota extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
                    
-            /*for (CursoAlumno c : lista) {
+            (CursoAlumno c : lista) {
                   
                   if(rut.equals(c.getRut())){
                    
@@ -63,7 +63,7 @@ public class CambiarNota extends HttpServlet {
                 out.println("<h1>Curso</h1>");
                 out.println("<h1>" + c.getCurso() + "</h1>");
                }
-            }*/
+            
             
             
             out.println("</body>");
