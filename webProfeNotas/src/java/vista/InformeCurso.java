@@ -43,21 +43,38 @@ public class InformeCurso extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             DAO dao = new DAO();
             int id = Integer.parseInt(request.getParameter("idCurso"));
+            
+            List<CursoAlumno> lista = dao.listaJavaWeb(id);
+            
+              String buscarxnombre = request.getParameter("txtBuscarxNombre");
+              
+              if(buscarxnombre !=null){
+               lista = dao.FiltroXNombre(buscarxnombre);
+           }else{
+            lista = dao.listaJavaWeb(id);
+            }
+            
+            
+            
+//            String nomb = request.getParameter("nombre");
 //            int id = 0;
 
-            List<CursoAlumno> lista = dao.listaJavaWeb(id);
+
+            
+            
+           
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet InformeCurso</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet InformeCurso at " + request.getContextPath() + "</h1>");
+            out.println("<h1>InformeCurso  </h1>");
             
             
-               out.println("<form  action='InformeCursoServlet.view' method='post'>");
+               out.println("<form  action='InformeCurso.view' method='post'>");
  
-                    out.println("<input type='text' required='required' placeholder='Buscar por nombre o por Rut' name='txtBuscar'/>");
+                    out.println("<input type='text' required='required' placeholder='Buscar por nombre o por Rut' name='txtBuscarxNombre'/>");
  
                     out.println("<input type='submit' value='Buscar'/>");
  
