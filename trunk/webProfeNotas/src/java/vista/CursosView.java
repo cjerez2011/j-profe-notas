@@ -44,14 +44,7 @@ public class CursosView extends HttpServlet {
             out.println("<h1>"+id+"</h1>");
             
              
-             out.println("<form  action='InformeCursoServlet.view' method='post'>");
- 
-                    out.println("<input type='text' required='required' placeholder='Buscar por nombre o por Rut' name='txtBuscar'/>");
- 
-                    out.println("<input type='submit' value='Buscar'/>");
- 
-                out.println("</form>");
-            
+          
             out.println("<table align='center' class='tablaDatos'>");
             out.println("<tr>");
             out.println("<th class='titulosTabla'>Rut</th>");

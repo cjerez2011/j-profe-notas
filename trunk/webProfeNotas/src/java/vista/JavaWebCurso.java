@@ -37,6 +37,8 @@ public class JavaWebCurso extends HttpServlet {
             out.println("<title>Servlet JavaWebCurso</title>");
             out.println("</head>");
             out.println("<body>");
+            
+            
 
             out.println("<table align='center' class='tablaDatos'>");
             out.println("<tr>");
