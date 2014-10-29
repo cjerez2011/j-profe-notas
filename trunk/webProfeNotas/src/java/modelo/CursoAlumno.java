@@ -14,6 +14,15 @@ public class CursoAlumno {
     private String curso;
     private String descripcion;
 
+
+    public CursoAlumno(String rut, String nombre, String apePa, String apeMa) {
+        this.rut = rut;
+        this.nombre = nombre;
+        this.apePa = apePa;
+        this.apeMa = apeMa;
+    }
+    
+    
     public CursoAlumno(String rut, String nombre, String apePa, String apeMa, int nota) {
         this.rut = rut;
         this.nombre = nombre;

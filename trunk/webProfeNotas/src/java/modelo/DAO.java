@@ -303,11 +303,12 @@ public class DAO {
  
 }
        public List<CursoAlumno>FiltroXNombre(String nombre){
-        List<CursoAlumno>listaxnombre = new ArrayList<>();
+        List<CursoAlumno>lista = new ArrayList<>();
          
         try {
             con.sentencia = con.conexion.createStatement();
-            String consulta = "select * from alumno where nombre LIKE '%"+nombre+"%'";
+
+              String consulta = "select a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota,b.descripcion, c.nombre as 'Curso'  from alumno a, notas b, curso c where a.nombre like = " + nombre + "";
             con.tablaResultado = con.sentencia.executeQuery(consulta);
             while(con.tablaResultado.next()){
                 String rut = con.tablaResultado.getString("rut");
@@ -316,14 +317,14 @@ public class DAO {
                 String apeM = con.tablaResultado.getString("ape_mat");
                 int nota = con.tablaResultado.getInt("nota");
                 
-                CursoAlumno c = new CursoAlumno(rut, nombre, apeP, apeM, nota);
-                listaxnombre.add(c);
+                CursoAlumno c = new CursoAlumno(rut, nombre, apeP, apeM,nota);
+                lista.add(c);
             }
             con.sentencia.close();
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listaxnombre;
+        return lista;
     }
     
     
