@@ -9,6 +9,7 @@ package vista;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,8 +18,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import modelo.Curso;
 import modelo.CursoAlumno;
 import modelo.DAO;
+import modelo.Profesor;
+import modelo.excepciones.URLException;
 
 /**
  *
@@ -41,8 +46,34 @@ public class InformeCurso extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            
+            
+
+ 
             DAO dao = new DAO();
             int id = Integer.parseInt(request.getParameter("idCurso"));
+            
+                         HttpSession session = request.getSession();
+            Profesor profeUp = (Profesor) session.getAttribute("profeUp");
+            session.setAttribute("curso", id);
+            
+            
+             if (profeUp == null) {
+ 
+                session.setAttribute("error", new URLException("Debe iniciar sesión para acceder."));
+ 
+                request.getRequestDispatcher("error.view").forward(request, response);
+ 
+            }
+ 
+            String rut = profeUp.getRut();
+ 
+            String nomb = "";
+            
+            List<Curso> cur = new ArrayList<Curso>();
+ 
+            cur = dao.CargarCursos(rut);
+ 
             
             List<CursoAlumno> lista = dao.listaJavaWeb(id);
             
@@ -69,7 +100,7 @@ public class InformeCurso extends HttpServlet {
             out.println("<title>Servlet InformeCurso</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>InformeCurso  </h1>");
+            out.println("<h1>InformeCurso "+cur+" </h1>");
             
             
                out.println("<form  action='InformeCurso.view' method='post'>");
