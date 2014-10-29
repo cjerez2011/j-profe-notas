@@ -54,27 +54,45 @@ public class InformeCurso extends HttpServlet {
             out.println("<h1>Servlet InformeCurso at " + request.getContextPath() + "</h1>");
             
             
-             out.println("<table align='center' class='tablaDatos'>");
-            out.println("<tr>");
-            out.println("<th class='titulosTabla'>Rut</th>");
-            out.println("<th class='titulosTabla'>Nombre</th>");
-            out.println("<th class='titulosTabla'>Apellido paterno</th>");
-            out.println("<th class='titulosTabla'>Apellido materno</th>");
-            out.println("<th class='titulosTabla'>Notas</th>");
-            out.println("<th class='titulosTabla'>Curso</th>");
-            out.println("</tr>");
-
-            for (CursoAlumno c : lista) {
-                out.println("<tr>");
-                out.println("<td class='datos'>" + c.getRut() + "</td>");
-                out.println("<td class='datos'>" + c.getNombre() + "</td>");
-                out.println("<td class='datos'>" + c.getApePa() + "</td>");
-                out.println("<td class='datos'>" + c.getApeMa() + "</td>");
-                out.println("<td class='datos'>" + c.getNota() + "</td>");
-                out.println("<td class='datos'>" + c.getCurso() + "</td>");
-                out.println("</tr>");
-            }
-            out.println("</table>");
+             
+                  out.println("<table  class='tablaDatos'>");
+ 
+                    out.println("<tr>");
+ 
+                        out.println("<th class='titulosTabla'>RUT</th>");
+ 
+                        out.println("<th class='titulosTabla'>Nombre</th>");
+ 
+                        out.println("<th class='titulosTabla'>Promedio</th>");
+ 
+                    out.println("</tr>");
+ 
+                    
+ 
+                    
+ 
+                    
+ 
+                for(CursoAlumno a : lista){
+ 
+                     out.println("<tr>");
+ 
+                        out.println("<td class='datos'>"+a.getRut()+"</td>");
+ 
+                        out.println("<td class='datos'>"+a.getNombre()+"</td>");
+ 
+                        out.println("<td class='datos'>"+null+"</td>");
+ 
+                       
+ 
+                    out.println("</tr>");
+ 
+                }
+ 
+                out.println("</table>");
+ 
+                out.println("<a href='menu.view'>Volver </a>");
+ 
 
             out.println("</body>");
             out.println("</html>");
