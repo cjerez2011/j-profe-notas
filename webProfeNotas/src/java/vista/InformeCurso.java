@@ -42,7 +42,8 @@ public class InformeCurso extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             DAO dao = new DAO();
-            int id = 0;
+            int id = Integer.parseInt(request.getParameter("idCurso"));
+//            int id = 0;
 
             List<CursoAlumno> lista = dao.listaJavaWeb(id);
             out.println("<!DOCTYPE html>");
@@ -52,6 +53,16 @@ public class InformeCurso extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet InformeCurso at " + request.getContextPath() + "</h1>");
+            
+            
+               out.println("<form  action='InformeCursoServlet.view' method='post'>");
+ 
+                    out.println("<input type='text' required='required' placeholder='Buscar por nombre o por Rut' name='txtBuscar'/>");
+ 
+                    out.println("<input type='submit' value='Buscar'/>");
+ 
+                out.println("</form>");
+            
             
             
              
