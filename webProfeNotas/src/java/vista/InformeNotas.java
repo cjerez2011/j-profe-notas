@@ -26,17 +26,13 @@ public class InformeNotas extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
 
-            String rut = request.getParameter("rut");
-
-                        
+            String rut = request.getParameter("rut");                       
             int idCurso = Integer.parseInt(request.getParameter("curso"));
-
+            
             DAO da = new DAO();
-
             List<CursoAlumno> lista = da.listaJavaWeb(idCurso);
             List<Nota>notas=da.listaNotas(rut, idCurso);
-        
-                
+                        
             //   int idAlu = da.TraerIdAlumno(rut);
             //   String nombreCur=da.TraerNombreCurso(idCurso);
             out.println("<!DOCTYPE html>");
@@ -46,10 +42,9 @@ public class InformeNotas extends HttpServlet {
             out.println("<title>Servlet InformeNotas</title>");
             out.println("</head>");
             out.println("<body>");
-            
-            
+                        
                for (CursoAlumno c : lista) {
-                   
+                  
                   if(rut.equals(c.getRut())){
                    
                 out.println("<h1>Informe Notas Alumno</h1>");
@@ -58,7 +53,6 @@ public class InformeNotas extends HttpServlet {
                 out.println("<h1>" + c.getCurso() + "</h1>");
                }
             }
-            
             
 //            out.println("<h1>Informe Notas Alumno</h1>");
 //            out.println("<h1>" + cu + "</h1>");
@@ -83,11 +77,10 @@ public class InformeNotas extends HttpServlet {
             out.println("<th>"+n.getNota()+"</th>");
             out.println("<th>"+n.getDescripcion()+"</th>");
             out.println("<th><a href=cursosview.view?idCurso="+n.getId()+">Editar</a></th>");
-
+            
             out.println("</tr>");
-out.println("</table>");
-            
-            
+            out.println("</table>");
+                     
             out.println("</body>");
             out.println("</html>");
             }
