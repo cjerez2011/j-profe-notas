@@ -19,6 +19,7 @@ public class DAO {
     private List<Alumno> alumnos;
     private List<Curso> cursos;
     private List<Nota> notas;
+    private List<CursoAlumno> alumnocursos;
 
     public DAO() throws SQLException {
         con = new Conexion("localhost", "colegio", "root", "");
@@ -292,5 +293,40 @@ public class DAO {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return cursos;*/
+        
+    
+        
+//            public List listaJavaWeb(int id) {
+//        int num = 0;
+
+    /**
+     *
+     * @param nombre
+     * @return
+     */
+    public List<CursoAlumno> getNombre(String nombre){
+        List<CursoAlumno>listaxnombre;
+        listaxnombre = new ArrayList<>();
+        try {
+            con.sentencia = con.conexion.createStatement();
+            String consulta = "select * from alumno where nombre LIKE '%"+nombre+"%'";
+            con.tablaResultado = con.sentencia.executeQuery(consulta);
+            while(con.tablaResultado.next()){
+                String rut = con.tablaResultado.getString("rut");
+                String nomb = con.tablaResultado.getString("nombre");
+                String apeP = con.tablaResultado.getString("ape_pat");
+                String apeM = con.tablaResultado.getString("ape_mat");
+                int nota = con.tablaResultado.getInt("nota");
+                
+                CursoAlumno c = new CursoAlumno(rut, nombre, apeP, apeM);
+                listaxnombre.add(c);
+            }
+            con.sentencia.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaxnombre;
+    }
 }
 }
+
