@@ -5,21 +5,42 @@ package modelo;
  * @author Fco
  */
 public class CursoAlumno {
-
-    private String rut;
+    
+      private String rut;
     private String nombre;
     private String apePa;
     private String apeMa;
     private int nota;
-    private String descripcion;
     private String curso;
+    private String descripcion;
 
-    public CursoAlumno(String nombre, String apePa, String apeMa, String curso) {
+    public CursoAlumno(String rut, String nombre, String apePa, String apeMa, int nota) {
+        this.rut = rut;
         this.nombre = nombre;
         this.apePa = apePa;
         this.apeMa = apeMa;
-        this.curso = curso;
+        this.nota = nota;
     }
+    
+   
+
+    public CursoAlumno() {
+    }
+    
+
+    
+    
+ 
+    
+  
+
+    
+//    public CursoAlumno(String nombre, String apePa, String apeMa, String curso) {
+//        this.nombre = nombre;
+//        this.apePa = apePa;
+//        this.apeMa = apeMa;
+//        this.curso = curso;
+//    }
     
     
     
@@ -33,6 +54,8 @@ public class CursoAlumno {
         this.curso = curso;
         this.descripcion = descripcion;
     }
+    
+    
 
     public String getDescripcion() {
         return descripcion;
