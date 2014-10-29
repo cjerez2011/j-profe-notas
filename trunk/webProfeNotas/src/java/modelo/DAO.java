@@ -248,9 +248,48 @@ public class DAO {
         }
         return notas;
     }
+        //metodo para Cambiar notas
+ 
+    public void CambiarNota(Nota n) {
+ 
+        Nota no = new Nota();
+ 
+        try {
+ 
+            String update = "update notas set nota=?, porcentaje_nota=?, descripcion=?, alumno=?, curso=? where id=1"; 
+                       
+             con.sentencia = con.conexion.createStatement();
+             con.sentencia.execute(update);
+             con.sentencia.close();
+ 
+        } catch (SQLException ex) {
+ 
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+ 
+        }
+ 
 
-    
-    
-    
+    /*public List CargarNotas(String id) {
 
+        String select = "select nota.id, nota.nota, nota.descripcion, nota.porcentaje, nota.alumno, nota.curso "
+                + "from nota, alumno, curso "
+                + "where curso.alumno = alumno.rut and "
+                + "nota.id = '" + id + "'";
+        List<nota> notas = new ArrayList<>();
+        try {
+
+            con.sentencia = con.conexion.createStatement();
+            con.tablaResultado = con.sentencia.executeQuery(select);
+            while (con.tablaResultado.next()) {
+                int idNota = con.tablaResultado.getInt("id");
+                String nombreCurso = con.tablaResultado.getString("nombre");
+
+                Curso cur = new Curso(idCurso, nombreCurso);
+                cursos.add(cur);
+            }
+            con.sentencia.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cursos;*/
 }

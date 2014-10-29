@@ -30,6 +30,7 @@ public class VerCursosServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            
             HttpSession session = request.getSession();
             Profesor profeUp = (Profesor) session.getAttribute("profeUp");
 
@@ -40,6 +41,7 @@ public class VerCursosServlet extends HttpServlet {
             DAO dao = new DAO();
             String nombre = dao.dameTuNombre(profeUp);
             String rut = dao.dameTuRut(profeUp);
+           
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
