@@ -49,11 +49,29 @@ public class InformeCurso extends HttpServlet {
             
             
 
- 
-            DAO dao = new DAO();
-            int id = Integer.parseInt(request.getParameter("idCurso"));
+// 
+//            DAO dao = new DAO();
+//            int id = Integer.parseInt(request.getParameter("idCurso"));
+//            
+//                         HttpSession session = request.getSession();
+//            Profesor profeUp = (Profesor) session.getAttribute("profeUp");
+//            session.setAttribute("curso", id);
             
-                         HttpSession session = request.getSession();
+            DAO dao = new DAO();
+           
+                        String buscarxnombre = request.getParameter("txtBuscarxNombre");
+//            if (buscarxnombre != null) {
+//                lista = dao.FiltroXNombre(buscarxnombre);
+//            } else {
+//                lista = dao.listaJavaWeb(id);
+//            }
+//            //            String nomb = request.getParameter("nombre");
+//            //            int id = 0;
+
+            
+            
+            int id = Integer.parseInt(request.getParameter("id"));
+            HttpSession session = request.getSession();
             Profesor profeUp = (Profesor) session.getAttribute("profeUp");
             session.setAttribute("curso", id);
             
@@ -77,7 +95,7 @@ public class InformeCurso extends HttpServlet {
             
             List<CursoAlumno> lista = dao.listaJavaWeb(id);
             
-              String buscarxnombre = request.getParameter("txtBuscarxNombre");
+//              String buscarxnombre = request.getParameter("txtBuscarxNombre");
               
               if(buscarxnombre !=null){
                lista = dao.FiltroXNombre(buscarxnombre);
