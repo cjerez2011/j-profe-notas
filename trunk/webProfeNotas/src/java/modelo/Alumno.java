@@ -5,8 +5,8 @@ package modelo;
  * @author Fco
  */
 public class Alumno {
-
-    private int id;
+    
+     private int id;
     private String rut;
     private String nombre;
     private String apellidoPaterno;
@@ -14,6 +14,15 @@ public class Alumno {
     private int edad;
     private String sexo;
 
+
+    public Alumno(String rut, String nombre, String apellidoPaterno, String apellidoMaterno) {
+        this.rut = rut;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+    }
+
+   
     public Alumno(int id, String rut, String nombre, String apellidoPaterno, String apellidoMaterno, int edad, String sexo) {
         this.id = id;
         this.rut = rut;

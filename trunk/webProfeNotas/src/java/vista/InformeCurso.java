@@ -49,29 +49,11 @@ public class InformeCurso extends HttpServlet {
             
             
 
-// 
-//            DAO dao = new DAO();
-//            int id = Integer.parseInt(request.getParameter("idCurso"));
-//            
-//                         HttpSession session = request.getSession();
-//            Profesor profeUp = (Profesor) session.getAttribute("profeUp");
-//            session.setAttribute("curso", id);
-            
+ 
             DAO dao = new DAO();
-           
-                        String buscarxnombre = request.getParameter("txtBuscarxNombre");
-//            if (buscarxnombre != null) {
-//                lista = dao.FiltroXNombre(buscarxnombre);
-//            } else {
-//                lista = dao.listaJavaWeb(id);
-//            }
-//            //            String nomb = request.getParameter("nombre");
-//            //            int id = 0;
-
+            int id = Integer.parseInt(request.getParameter("idCurso"));
             
-            
-            int id = Integer.parseInt(request.getParameter("id"));
-            HttpSession session = request.getSession();
+                         HttpSession session = request.getSession();
             Profesor profeUp = (Profesor) session.getAttribute("profeUp");
             session.setAttribute("curso", id);
             
@@ -95,7 +77,7 @@ public class InformeCurso extends HttpServlet {
             
             List<CursoAlumno> lista = dao.listaJavaWeb(id);
             
-//              String buscarxnombre = request.getParameter("txtBuscarxNombre");
+              String buscarxnombre = request.getParameter("txtBuscarxNombre");
               
               if(buscarxnombre !=null){
                lista = dao.FiltroXNombre(buscarxnombre);
@@ -123,9 +105,18 @@ public class InformeCurso extends HttpServlet {
             
                out.println("<form  action='InformeCurso.view' method='post'>");
  
-                    out.println("<input type='text' required='required' placeholder='Buscar por nombre o por Rut' name='txtBuscarxNombre'/>");
+                    out.println("<input type='text' required='required' placeholder='Ingrese Nombre' name='txtBuscarxNombre'/>");
  
-                    out.println("<input type='submit' value='Buscar'/>");
+                    out.println("<input type='submit' value='Buscar por Nombre'/>");
+ 
+                out.println("</form>");
+                
+                
+                               out.println("<form  action='InformeCurso.view' method='post'>");
+ 
+                    out.println("<input type='text' required='required' placeholder='Ingrese Rut' name='txtBuscarxRUT'/>");
+ 
+                    out.println("<input type='submit' value='Buscar por RUT'/>");
  
                 out.println("</form>");
             
