@@ -307,18 +307,20 @@ public class DAO {
          
         try {
             con.sentencia = con.conexion.createStatement();
+            
+                        String consulta = "select * from curso_alumno where nombre LIKE '%"+nombre+"%'";
 
-              String consulta = "select a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota,b.descripcion, c.nombre as 'Curso'  from alumno a, notas b, curso c where a.nombre like = " + nombre + "";
+//              String consulta = "select a.rut, a.nombre, a.ape_pat, a.ape_mat, b.nota,b.descripcion, c.nombre as 'Curso'  from alumno a, notas b, curso c where a.nombre like = " + nombre + "";
             con.tablaResultado = con.sentencia.executeQuery(consulta);
             while(con.tablaResultado.next()){
                 String rut = con.tablaResultado.getString("rut");
                 String nomb = con.tablaResultado.getString("nombre");
                 String apeP = con.tablaResultado.getString("ape_pat");
                 String apeM = con.tablaResultado.getString("ape_mat");
-                int nota = con.tablaResultado.getInt("nota");
+//                int nota = con.tablaResultado.getInt("nota");
                 
-                CursoAlumno c = new CursoAlumno(rut, nombre, apeP, apeM,nota);
-                lista.add(c);
+                CursoAlumno a = new CursoAlumno(rut, nombre, apeP, apeM);
+                lista.add(a);
             }
             con.sentencia.close();
         } catch (SQLException ex) {
