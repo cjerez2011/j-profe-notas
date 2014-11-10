@@ -1,0 +1,38 @@
+.botonCurso {
+padding: 20px;
+margin: 10px;
+width:300px;  
+background-color:#8DCD47;  
+text-align:center; 
+border-radius:8px;
+-o-border-radius:8px;
+-moz-border-radius:8px; 
+-webkit-border-radius:8px; 
+box-shadow: 0px 0px 5px black, inset 0px 0px 3px #10440F;
+-o-box-shadow: 0px 0px 5px black, inset 0px 0px 3px #10440F;
+-moz-box-shadow: 0px 0px 5px black, inset 0px 0px 3px #10440F;
+-webkit-box-shadow: 0px 0px 5px black, inset 0px 0px 3px #10440F; 
+border:1px #AEF99B solid;  
+cursor:pointer;
+}
+.botonCurso:hover{
+background-color:#9EDE58;
+}
+.botonCurso:active{ 
+box-shadow: 0px 0px 2px black, inset 0px 0px 6px #10440F;
+-o-box-shadow: 0px 0px 2px black, inset 0px 0px 6px #10440F;
+-moz-box-shadow: 0px 0px 2px black, inset 0px 0px 6px #10440F;
+-webkit-box-shadow: 0px 0px 2px black, inset 0px 0px 6px #10440F;
+}
+.botonCurso:active a{
+font-size: 30px;
+}
+.botonCurso a{
+color:#10440F;
+display:block;
+text-decoration:none;
+font-size:32px;
+font-family:Verdana, Geneva, sans-serif;
+font-weight:bold;
+text-shadow:1px 1px 2px white;
+}
