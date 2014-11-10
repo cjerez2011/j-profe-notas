@@ -261,6 +261,7 @@ public class DAO {
                 + "'" + nuevo.getNota() + "',"
                 + "'" + nuevo.getPorcentaje() + "',"
                 + "'" + nuevo.getDescripcion() + "',"
+                + "'" + ((nuevo.getNota()*nuevo.getPorcentaje()))/100 + "',"
                 + "'" + nuevo.getCurso() + "',"
                 + "'" + nuevo.getAlumno() + "')";
         con.sentencia = con.conexion.createStatement();

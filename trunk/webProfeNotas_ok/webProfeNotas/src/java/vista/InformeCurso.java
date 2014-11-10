@@ -68,7 +68,7 @@ public class InformeCurso extends HttpServlet {
             out.println("<link rel='stylesheet' type='text/css' href='css/css4.css'/>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1 align='center'>"+buscarxnombre+"</h1>");
+//            out.println("<h1 align='center'>"+buscarxnombre+"</h1>");
             
             out.println("<h1 align='center'>Informe Del Curso De: " + nomb + " </h1>");
 
@@ -78,21 +78,13 @@ public class InformeCurso extends HttpServlet {
 //            out.println("<input type='submit' value='Buscar'/>");
 //            out.println("</form>");
             out.println("<form  action='InformeCursoServlet.view?id="+id+"' method='post'>");
-
-            out.println("<input type='text' required='required' placeholder='Ingrese Nombre' name='txtBuscarxNombre'/>");
-
+           out.println("<input type='text' required='required' placeholder='Ingrese Nombre' name='txtBuscarxNombre'/>");
             out.println("<input type='submit' value='Buscar por Nombre'/>");
-
             out.println("</form>");
-
             out.println("<form  action='InformeCursoServlet.view' method='post' >");
-
             out.println("<input type='text' required='required' placeholder='Ingrese Rut' name='txtBuscarxRUT'/>");
-
             out.println("<input type='submit' value='Buscar por RUT'/>");
-
             out.println("</ form>");
-
             out.println("<br>");
             out.println("</br>");
             out.println("<table  border='1'  class='tablaDatos'>");
@@ -101,9 +93,7 @@ public class InformeCurso extends HttpServlet {
             out.println("<th class='titulosTabla'  width='200'>Nombre</th>");
             out.println("<th class='titulosTabla'>Promedio</th>");
             out.println("</tr>");
-            
-           
-            
+    
             for (CursoAlumno a : lista) {
                 out.println("<tr>");
                 out.println("<td class='datos'><a href=informenotas.view?idNota=" + a.getId() + "&idCurso=" + id + "&rutAlumno=" + a.getRut() + "&curso=" + nomb + ">" + a.getRut() + "</a>");
@@ -114,7 +104,6 @@ public class InformeCurso extends HttpServlet {
              //     out.println("<h1 align='center'>"+dao.idAlumno(a.getRut()) +"</h1>");
             }
             out.println("</table>");
-
             out.println("<br>");
             out.println("</br>");
             out.println("<a class='titulosTabla'  href='menu.view'>Volver al Menú</a>");
